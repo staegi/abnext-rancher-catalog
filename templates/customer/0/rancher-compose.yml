@@ -1,0 +1,21 @@
+.catalog:
+  name: "Customer"
+  version: "1.0.0"
+  description: "Customer Stack with API and Portal"
+  uuid: customer-1.0.0
+  minimum_rancher_version: v0.56.0
+  questions:
+    - variable: account_identifier
+      description: "Identifier of the customer account"
+      label: "Account identifier"
+      type: "string"
+      required: true
+    - variable: domain_list
+      description: "Comma seperated list of domains"
+      label: "Domains"
+      type: "string"
+      required: true
+
+letsencrypt:
+  scale: 1
+  start_on_create: true

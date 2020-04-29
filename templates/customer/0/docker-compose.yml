@@ -6,13 +6,13 @@ services:
       API_VERSION: Production
       CERT_NAME: ${account_identifier}
       DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
-      DOMAINS: ${account_identifier}.artbutlercloud.com,${domain_list}
-      EMAIL: webmaster@artbutler.com
+      DOMAINS: ${domain_list}
+      EMAIL: serviceadmin@artbutler.com
       EULA: 'Yes'
       PROVIDER: HTTP
-      PUBLIC_KEY_TYPE: RSA-2048
-      RENEWAL_PERIOD_DAYS: '20'
-      RENEWAL_TIME: '22'
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
       RUN_ONCE: 'false'
     volumes:
     - /var/lib/rancher:/var/lib/rancher

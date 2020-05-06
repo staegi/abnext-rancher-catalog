@@ -11,7 +11,7 @@ Zeige auf folgende IP-Adresse: `52.29.153.93`.
     
 ### Stack im Rancher hinzufügen
 
-Füllt [das Formular][1] für den Stack aus. Der `Account Identifier` sollte mit dem im [Cloud Admin][2] identisch sein, weil dieser demnächst automatisch für die Subdomains unter artbutlercloud.com genutzt wird. Die `Domains` sind ohne Leerzeichen mit Kommata zu trennen. `Name` und `Description` des Stacks können frei gewählt werden. Als `Name` ergibt es sicher meistens Sinn, den gleichen Wert wie `Account Identifier` zu nutzen.
+Füllt [das Formular][1] für den Stack aus. Der `Account Identifier` sollte mit dem im [Cloud Admin][2] identisch sein, weil dieser demnächst automatisch für die Subdomains unter artbutlercloud.com genutzt wird. Die `Domains` sind ohne Leerzeichen mit Kommata zu trennen. Gebt bitte beide Varianten mit und ohne www an. `Name` und `Description` des Stacks können frei gewählt werden. Als `Name` ergibt es sicher meistens Sinn, den gleichen Wert wie `Account Identifier` zu nutzen.
 
 ![](https://artbutler.s3.amazonaws.com/howto/step2.png)
 
@@ -19,7 +19,7 @@ Mit Klick auf `Launch` wird der Stack gestartet.
 
 ### Domains im Load Balancer ergänzen
 
-Fügt je Domain zwei Service Rules im [Load Balancer][3] hinzu. Klicke dazu zweimal auf `Add Service Rule`.
+Fügt je Domain eine Service Rule im [Load Balancer][3] hinzu. Klicke dazu auf `Add Service Rule`. 
 
 ![](https://artbutler.s3.amazonaws.com/howto/step3.png)
 
@@ -33,16 +33,6 @@ Eine Service Rule sollte mit folgenden Attributen und der jeweiligen Domain auf 
     Target: *Let's encrypt Container*
     Port: 80
 
-Die zweite Service Rule sollte auf den Website Proxy zeigen.
-
-    Access: Public
-    Protocol: HTTPS
-    Request Host: *Domain*
-    Port: 443 
-    Path: /.well-known/acme-challenge
-    Target: ab3-websites/proxy 
-    Port: 80
-     
 ![](https://artbutler.s3.amazonaws.com/howto/step4.png)
 
 Mit dem Knopf `Edit` wird die Änderung bestätigt. Dazu ganz nach unten scrollen.

@@ -19,7 +19,7 @@ Mit Klick auf `Launch` wird der Stack gestartet.
 
 ### Domains im Load Balancer ergänzen
 
-Fügt je Domain eine Service Rule im [Load Balancer][3] hinzu. Klicke dazu auf `Add Service Rule`. 
+Fügt je Domain eine Service Rule im [Load Balancer][3] hinzu. Hier auch wieder mit und ohne www. Klicke dazu auf `Add Service Rule`. Nun erscheint am unteren Ende der Liste ein neuer leerer Eintrag.
 
 ![](https://artbutler.s3.amazonaws.com/howto/step3.png)
 
@@ -43,7 +43,7 @@ Mit dem Knopf `Edit` wird die Änderung bestätigt. Dazu ganz nach unten scrolle
 
 ![](https://artbutler.s3.amazonaws.com/howto/step5.png)
 
-Ist das Zertifikat aufgetaucht, dann musst du wieder [in den Load Balancer gehen][3] und das Zertifikat anzuhängen. Dazu auf `Add Alternate Certificate` klicken.
+Ist das Zertifikat aufgetaucht, dann musst du wieder [in den Load Balancer gehen][3] und das Zertifikat anzuhängen. Dazu auf `Add Alternate Certificate` klicken. Nun erscheint wieder am Ende der Liste ein neues Auswahlfeld.
 
 ![](https://artbutler.s3.amazonaws.com/howto/step6.png)
 

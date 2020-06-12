@@ -1,0 +1,93 @@
+version: '2'
+volumes:
+  matomo_plugins:
+    external: true
+    driver: rancher-nfs
+  matomo_config:
+    external: true
+    driver: rancher-nfs
+  matomo_logos:
+    external: true
+    driver: rancher-nfs
+services:
+  archiver:
+    image: matomo:3.13.6-fpm-alpine
+    environment:
+      MATOMO_DATABASE_HOST: database
+      MATOMO_DATABASE_ADAPTER: mysql
+      MATOMO_DATABASE_TABLES_PREFIX: ${database_tables_prefix}
+      MATOMO_DATABASE_DBNAME: ${database_name}
+      MATOMO_DATABASE_USERNAME: ${database_user}
+      MATOMO_DATABASE_PASSWORD: ${database_password}
+    stdin_open: true
+    external_links:
+    - mysql/mysql:database
+    volumes:
+    - matomo_plugins:/var/www/html/plugins
+    - matomo_config:/var/www/html/config
+    - matomo_config:/usr/src/matomo/config
+    - matomo_logos:/var/www/html/misc/user
+    tty: true
+    command:
+    - sh
+    - -c
+    - while true; do php console core:archive||true; sleep 1m; done
+    labels:
+      io.rancher.container.pull_image: always
+  nginx:
+    image: tomcat2111/matomo-nginx:0.0.1
+    environment:
+      NGINX_BACKEND_HOST: matomo
+      NGINX_SERVER_NAME: php
+      NGINX_SERVER_ROOT: /var/www/html
+    stdin_open: true
+    external_links:
+    - mysql/mysql:database
+    tty: true
+    volumes_from:
+    - matomo
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: matomo
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      API_VERSION: Production
+      CERT_NAME: matomo
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      DOMAINS: ${domain_list}
+      EMAIL: serviceadmin@artbutler.com
+      EULA: 'Yes'
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+    stdin_open: true
+    volumes:
+    - /var/lib/rancher:/var/lib/rancher
+    tty: true
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.pull_image: always
+  matomo:
+    image: matomo:3.13.6-fpm-alpine
+    environment:
+      MATOMO_DATABASE_HOST: database
+      MATOMO_DATABASE_ADAPTER: mysql
+      MATOMO_DATABASE_TABLES_PREFIX: ${database_tables_prefix}
+      MATOMO_DATABASE_DBNAME: ${database_name}
+      MATOMO_DATABASE_USERNAME: ${database_user}
+      MATOMO_DATABASE_PASSWORD: ${database_password}
+    stdin_open: true
+    external_links:
+    - mysql/mysql:database
+    volumes:
+    - matomo_plugins:/var/www/html/plugins
+    - matomo_config:/var/www/html/config
+    - matomo_config:/usr/src/matomo/config
+    - matomo_logos:/var/www/html/misc/user
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always

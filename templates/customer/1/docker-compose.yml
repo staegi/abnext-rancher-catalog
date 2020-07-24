@@ -1,0 +1,21 @@
+version: '2'
+services:
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      API_VERSION: Production
+      CERT_NAME: {{ .Stack.Name }}
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      DOMAINS: ${domain_list}
+      EMAIL: serviceadmin@artbutler.com
+      EULA: 'Yes'
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+    volumes:
+    - /var/lib/rancher:/var/lib/rancher
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'

@@ -11,7 +11,7 @@ Zeige auf folgende IP-Adresse: `52.29.153.93`.
     
 ### Stack im Rancher hinzufügen
 
-Füllt [das Formular][1] für den Stack aus. Der `Account Identifier` sollte mit dem im [Cloud Admin][2] identisch sein, weil dieser demnächst automatisch für die Subdomains unter artbutlercloud.com genutzt wird. Die `Domains` sind ohne Leerzeichen mit Kommata zu trennen. Gebt bitte beide Varianten mit und ohne www an. `Name` und `Description` des Stacks können frei gewählt werden. Als `Name` ergibt es sicher meistens Sinn, den gleichen Wert wie `Account Identifier` zu nutzen.
+Füllt [das Formular][1] für den Stack aus. Der `Account Identifier` sollte mit der numerischen Account ID im [Cloud Admin][2] identisch sein, weil dieser demnächst automatisch für die Subdomains unter artbutlercloud.com genutzt wird. Die `Domains` sind ohne Leerzeichen mit Kommata zu trennen. Gebt bitte beide Varianten mit und ohne www an. `Name` und `Description` des Stacks können frei gewählt werden.
 
 ![](https://artbutler.s3.amazonaws.com/howto/step2.png)
 
@@ -23,7 +23,7 @@ Fügt je Domain eine Service Rule im [Load Balancer][3] hinzu. Hier auch wieder 
 
 ![](https://artbutler.s3.amazonaws.com/howto/step3.png)
 
-Eine Service Rule sollte mit folgenden Attributen und der jeweiligen Domain auf den neu angelegten Let's encrypt Container zeigen. Dieser steht zeit dem letzten Schritt im Dropdown zur Verfügung.
+Die Service Rule sollte mit folgenden Attributen und der jeweiligen Domain auf den neu angelegten Let's encrypt Container zeigen. Dieser steht zeit dem letzten Schritt im Dropdown zur Verfügung.
 
     Access: Public
     Protocol: HTTP

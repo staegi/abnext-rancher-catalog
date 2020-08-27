@@ -1,4 +1,4 @@
-# Kundendomains hinzufügen
+## Kundendomains hinzufügen
 
 1. [Domains auf unseren Server zeigen lassen](#domains-auf-unseren-server-zeigen-lassen)
 2. [Stack im Rancher hinzufügen](#stack-im-rancher-hinzufgen)
@@ -7,7 +7,9 @@
 
 ### Domains auf unseren Server zeigen lassen
 
-Zeige auf folgende IP-Adresse: `52.29.153.93`.
+telle das A-Record um auf folgende IP-Adresse: `52.29.153.93`. Ob die Umstellung schon aktiv ist, kann man im Terminal (Mac) oder mit Cmd (Windows) mit `ping`, etwa `ping meine-galerie.de`, prüfen.
+
+Bei Kunden, die von vH7 wechseln, um das Zertifikat zu aktualisieren, bitte mit dem [DNS Lookup Tool][5] vorher prüfen, ob in den DNS-Einstellungen ein evtl. vorhandenes AAAA-Record für vH7 (war: `2a01:4f8:191:9050::a7`) wieder gelöscht wurde - es darf bei der Zertifikatsbeantragung kein AAAA-Record mehr eingetragen sein!
     
 ### Stack im Rancher hinzufügen
 
@@ -53,7 +55,29 @@ Und dann im Dropdown das neue Zertifikat mit dem `Account Identifier` auswählen
 
 Am Ende wieder mit dem Knopf `Edit` bestätigen.
 
+## Weitere Domains für bestehenden Kunden ergänzen
+
+Alle zusätzlichen Domains müssen bereits auf unseren Server (A-Record: 52.29.153.93) zeigen, es darf *kein AAAA-Record* eingetragen sein. Die DNS-Einträge kann man z.B. mit dem [DNS Lookup Tool][5] prüfen, oft reicht auch ein Test im Terminal (Mac) oder mit Cmd (Windows) mit `ping`, etwa `ping meine-galerie.de`.
+
+Dann [wie oben beschrieben](#domains-im-load-balancer-ergnzen) im [Load Balancer][3] die neuen Regeln für die zusätzlichen Domains eintragen und den Let’s Encrypt Container im Kundenstack `Kundenname/letsencrypt` als Target zuweisen.
+
+Danach in der [Liste der Stacks][7] beim Stack des Kunden auf `Up to date` klicken. Im Formular erneut das Template auswählen (Version 1.0.1) und im nächsten Schritt die weiteren Domains ergänzen. Stack mit `Upgrade` sichern. Im letzten Schritt bitte das Update des Stacks mit der gelben Taste `Finish Upgrade` abschliessen.
+
+Der Stack wird aktualisiert und die neuen Domains nach kurzer Zeit (~2 min.) automatisch im bestehenden Zertifikat ergänzt. Dieses muss daher nicht erneut angehängt werden.
+
+## Bei Fehlern
+
+Wenn das Zertifikat nicht erstellt wird, bitte prüfen
+
+* sind die DNS Einstellungen korrekt: [DNS Lookup Tool][5]
+* stimmen die eingetragenen Domains und wurde der richtige Stack zugewiesen?
+
+**Achtung**: Die [Rate Limits vom Let’s Encrypt Server][6] erlauben **fünf (5) Anfragen pro Stunde**, wenn also die ersten 5 Versuche wegen eines Fehlers (A-Record falsch oder AAAA-Record vorhanden) in den ersten rund 10 Minuten fehlgeschlagen sind, geht es prinzipiell erst eine Stunde später weiter. Es wird im Abstand von 120 Sekunden geprüft. Das heißt nach 10 Minuten bricht das Script ab und man muss sich dann 50 Minuten gedulden bis zur nächsten Validierung.
+
 [1]: https://rancher.artbutler.com/env/1a5/catalog/Operations:customer?catalogId=Operations
 [2]: https://cloudadmin.artbutler.com
 [3]: https://rancher.artbutler.com/env/1a5/apps/add-balancer?serviceId=1s120&stackId=1st5&upgrade=true
 [4]: https://rancher.artbutler.com/env/1a5/infra/certificates
+[5]: https://www.ultratools.com/tools/dnsLookup
+[6]: https://letsencrypt.org/docs/rate-limits/
+[7]: https://rancher.artbutler.com/env/1a5/apps/stacks?which=all

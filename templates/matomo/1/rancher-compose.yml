@@ -2,7 +2,7 @@
   name: "Matomo"
   version: "3.13.6"
   description: "Matomo (formerly Piwik) stack with Let's encrypt and archiving"
-  uuid: customer-3.13.6
+  uuid: matomo-3.13.6
   minimum_rancher_version: v0.56.0
   questions:
     - variable: database_name

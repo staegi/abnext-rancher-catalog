@@ -2,7 +2,7 @@
   name: "Customer"
   version: "1.0.1"
   description: "Customer Stack with API and Portal"
-  uuid: customer-1.0.0
+  uuid: customer-1.0.1
   minimum_rancher_version: v0.56.0
   questions:
     - variable: account_identifier

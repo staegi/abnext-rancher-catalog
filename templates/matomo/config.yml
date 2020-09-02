@@ -1,4 +1,4 @@
 name: Matomo
 description: Matomo (formerly Piwik) stack with Let's encrypt and archiving
-version: 3.13.6
+version: 3.14.0
 category: Custom

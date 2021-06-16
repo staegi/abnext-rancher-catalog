@@ -27,7 +27,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   vue:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:v0.0.3
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.0.3
     environment:
       VUE_APP_ENV_NAME: "production"
       VUE_APP_I18N_LOCALE: "en"
@@ -38,7 +38,7 @@ services:
       VUE_APP_NODE_ENV: "production"
       VUE_APP_GRAPHQL_HTTP: "${app_url}/graphql"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:v0.0.5
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.0.5
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}

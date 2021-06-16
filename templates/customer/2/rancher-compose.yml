@@ -67,18 +67,18 @@
       required: true
     - variable: smtp_port
       description: "Used for sending emails from the system"
-      label: ""
+      label: "SMTP Port"
       type: "string"
       required: true
     - variable: smtp_username
       description: "Used for sending emails from the system"
-      label: ""
+      label: "SMTP Username"
       type: "string"
       required: true
     - variable: smtp_password
       description: "Used for sending emails from the system"
-      label: ""
-      type: "string"
+      label: "SMTP Password"
+      type: "password"
       required: true
     - variable: smtp_encryption
       description: "Default value: TLS"

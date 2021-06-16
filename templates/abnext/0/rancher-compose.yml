@@ -1,8 +1,8 @@
 .catalog:
-  name: "Customer"
-  version: "2.0.0"
-  description: "Customer Stack with API and Portal"
-  uuid: customer-2.0.0
+  name: "ArtbutlerNext"
+  version: "1.0.0"
+  description: "ArtbutlerNext Stack with API and Portal"
+  uuid: artbutler-next-1.0.0
   minimum_rancher_version: v0.56.0
   questions:
     - variable: domain_list

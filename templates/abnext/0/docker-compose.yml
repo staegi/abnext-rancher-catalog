@@ -73,6 +73,43 @@ services:
       KEYCLOAK_REALM: ${keycloak_realm}
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
+  horizon:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.0.6
+    user: abx
+    command: 'php /var/www/html/artisan horizon'
+    environment:
+      APP_ENV: ${app_env}
+      APP_KEY: ${app_key}
+      APP_URL: ${app_url}
+      LOG_CHANNEL: ${log_channel}
+      LOG_LEVEL: notice
+      DB_HOST: ${db_host}
+      DB_PORT: ${db_port}
+      DB_CONNECTION: tenant
+      DB_DATABASE: ${db_database}
+      DB_USERNAME: ${db_username}
+      DB_PASSWORD: ${db_password}
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${redis_password}
+      REDIS_PORT: 6379
+      MAIL_MAILER: smtp
+      MAIL_HOST: ${smtp_host}
+      MAIL_PORT: ${smtp_port}
+      MAIL_USERNAME: ${smtp_username}
+      MAIL_PASSWORD: ${smtp_password}
+      MAIL_ENCRYPTION: ${smtp_encryption}
+      MAIL_FROM_ADDRESS: ${smtp_from_address}
+      MAIL_FROM_NAME: ${smtp_from_name}
+      AWS_ACCESS_KEY_ID: ${aws_access_key_id}
+      AWS_SECRET_ACCESS_KEY: ${aws_secret_access_key}
+      AWS_DEFAULT_REGION: ${aws_default_region}
+      AWS_BUCKET: ${aws_bucket}
+      KEYCLOAK_REALM_PUBLIC_KEY: ${keycloak_realm_public_key}
+      KEYCLOAK_ALLOWED_RESOURCES: ${keycloak_allowed_resources}
+      KEYCLOAK_BASE_URL: ${keycloak_base_url}
+      KEYCLOAK_REALM: ${keycloak_realm}
+      KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
+      KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
   redis:
     image: docker.io/bitnami/redis:6.2
     environment:

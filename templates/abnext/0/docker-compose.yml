@@ -36,7 +36,8 @@ services:
       VUE_APP_KEYCLOAK_URL: "${keycloak_base_url}/auth"
       VUE_APP_KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       VUE_APP_NODE_ENV: "production"
-      VUE_APP_GRAPHQL_HTTP: "${app_url}/graphql"
+      VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
+      VUE_APP_REST: "https://${app_url}"
   laravel:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.0.6
     environment:

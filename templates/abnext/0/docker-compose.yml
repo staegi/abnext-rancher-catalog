@@ -111,9 +111,8 @@ services:
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
   redis:
-    image: docker.io/bitnami/redis:6.2
-    environment:
-      REDIS_PASSWORD: ${redis_password}
+    image: redis:6.2.4
+    command: redis-server --requirepass ${redis_password}
     volumes:
       - {{ .Stack.Name }}_redis_data:/bitnami/redis/data
   elasticsearch:

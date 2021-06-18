@@ -116,8 +116,7 @@ services:
     volumes:
       - {{ .Stack.Name }}_redis_data:/bitnami/redis/data
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
-    container_name: elasticsearch
+    image: elasticsearch:7.13.2
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node

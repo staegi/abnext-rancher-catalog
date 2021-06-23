@@ -40,7 +40,7 @@ services:
       VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
       VUE_APP_REST: "https://${app_url}"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.2.0
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.2.1
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}
@@ -76,7 +76,7 @@ services:
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
       HONEYBADGER_API_KEY: ${honeybadger_api_key}
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.2.0
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.2.1
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:

@@ -120,7 +120,7 @@ services:
       - {{ .Stack.Name }}_redis_data:/bitnami/redis/data
   elasticsearch:
     image: elasticsearch:7.13.2
-    user: root
+    user: $USER
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node

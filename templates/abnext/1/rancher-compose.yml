@@ -145,6 +145,11 @@
       label: "Keycloak Client Secret"
       type: "password"
       required: true
+    - variable: honeybadger_api_key
+      description: "Used for collecting errors in HoneyBadger service"
+      label: "HoneyBadger API Key"
+      type: "password"
+      required: true
 
 letsencrypt:
   scale: 1

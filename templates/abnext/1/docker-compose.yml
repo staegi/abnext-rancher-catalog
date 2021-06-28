@@ -117,7 +117,7 @@ services:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}
     volumes:
-      - {{ .Stack.Name }}_redis_data:/bitnami/redis/data
+      - {{ .Stack.Name }}_redis_data:/data
   elasticsearch:
     image: elasticsearch:7.13.2
     environment:

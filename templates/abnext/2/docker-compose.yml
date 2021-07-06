@@ -39,8 +39,16 @@ services:
       VUE_APP_NODE_ENV: "production"
       VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
       VUE_APP_REST: "https://${app_url}"
+  ofelia:
+    image: mcuadros/ofelia:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./conf/ofelia-config.ini:/etc/ofelia/config.ini
+    depends_on:
+      - laravel
   laravel:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.0
+    container_name: laravel
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}
@@ -74,7 +82,7 @@ services:
       KEYCLOAK_REALM: ${keycloak_realm}
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
-      SENTRY_DSN: ${honeybadger_api_key}
+      SENTRY_DSN: ${sentry_dsn}
   horizon:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.0
     user: abx

@@ -83,6 +83,7 @@ services:
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
       SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
   horizon:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.0
     user: abx
@@ -121,6 +122,7 @@ services:
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
       SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
   redis:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}

@@ -150,6 +150,11 @@
       label: "Sentry DSN"
       type: "password"
       required: true
+    - variable: public_file_baseurl
+      description: "Specifies the path to service which will proxying user uploads from the S3"
+      label: "Public file base URL"
+      type: "string"
+      required: true
 
 letsencrypt:
   scale: 1

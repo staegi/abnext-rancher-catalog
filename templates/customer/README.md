@@ -74,6 +74,18 @@ Wenn das Zertifikat nicht erstellt wird, bitte prüfen
 
 **Achtung**: Die [Rate Limits vom Let’s Encrypt Server][6] erlauben **fünf (5) Anfragen pro Stunde**, wenn also die ersten 5 Versuche wegen eines Fehlers (A-Record falsch oder AAAA-Record vorhanden) in den ersten rund 10 Minuten fehlgeschlagen sind, geht es prinzipiell erst eine Stunde später weiter. Es wird im Abstand von 120 Sekunden geprüft. Das heißt nach 10 Minuten bricht das Script ab und man muss sich dann 50 Minuten gedulden bis zur nächsten Validierung.
 
+## Entfernen von Kunden-Stacks
+
+Wird ein Stack nicht mehr gebraucht, weil der Kunde weg ist und das DNS nicht mehr zu uns auflöst, dann kann man den Stack ganz einfach über das Kontextmenüs des Stacks löschen. ABER VORSICHT, bitte nicht in der Zeile verrutschen ;-)
+
+Falls ihr doch versehentlich einen Stack gelöscht habt, dann kann ich den aber auch wieder via Datenbank herstellen.
+
+![](https://artbutler.s3.eu-central-1.amazonaws.com/howto/removal1.png)
+
+Nun bleibt allerdings noch das vom letsencrypt erzeugte Zertifikat erhalten. Diese findet ihr im Menü unter [INFRASTRUCTURE > Certificates][8]. Das könnt ihr dort auch ganz einfach über das Kontextmenü löschen.
+
+![](https://artbutler.s3.eu-central-1.amazonaws.com/howto/removal2.png)
+
 [1]: https://rancher.artbutler.com/env/1a5/catalog/Operations:customer?catalogId=Operations
 [2]: https://cloudadmin.artbutler.com
 [3]: https://rancher.artbutler.com/env/1a5/apps/add-balancer?serviceId=1s120&stackId=1st5&upgrade=true
@@ -81,3 +93,4 @@ Wenn das Zertifikat nicht erstellt wird, bitte prüfen
 [5]: https://www.ultratools.com/tools/dnsLookup
 [6]: https://letsencrypt.org/docs/rate-limits/
 [7]: https://rancher.artbutler.com/env/1a5/apps/stacks?which=all
+[8]: https://rancher.artbutler.com/env/1a5/infra/certificates

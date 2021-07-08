@@ -47,7 +47,7 @@ services:
     depends_on:
       - laravel
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.0
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.1
     container_name: laravel
     environment:
       APP_ENV: ${app_env}
@@ -85,7 +85,7 @@ services:
       SENTRY_DSN: ${sentry_dsn}
       PUBLIC_FILE_BASEURL: ${public_file_baseurl}
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.0
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.1
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:

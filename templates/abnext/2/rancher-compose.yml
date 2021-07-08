@@ -155,6 +155,11 @@
       label: "Public file base URL"
       type: "string"
       required: true
+    - variable: media_path_prefix
+      description: "Specifies the media path prefix"
+      label: "Media path prefix"
+      type: "string"
+      required: true
 
 letsencrypt:
   scale: 1

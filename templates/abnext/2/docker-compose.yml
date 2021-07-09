@@ -41,6 +41,7 @@ services:
       VUE_APP_REST: "https://${app_url}"
   ofelia:
     image: mcuadros/ofelia:latest
+    command: daemon --docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
@@ -48,6 +49,10 @@ services:
   laravel:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.1
     container_name: laravel
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 1m"
+      ofelia.job-exec.datecron.command: "php /var/www/html/artisan schedule:run"
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}

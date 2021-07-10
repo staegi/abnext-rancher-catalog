@@ -27,7 +27,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   vue:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.0.12
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.3.5
     environment:
       VUE_APP_BASE_URL: "/"
       VUE_APP_ENV_NAME: "production"
@@ -39,8 +39,20 @@ services:
       VUE_APP_NODE_ENV: "production"
       VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
       VUE_APP_REST: "https://${app_url}"
+  ofelia:
+    image: mcuadros/ofelia:latest
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - laravel
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.0.6
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.1
+    container_name: laravel
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 1m"
+      ofelia.job-exec.datecron.command: "php /var/www/html/artisan schedule:run"
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}
@@ -74,8 +86,11 @@ services:
       KEYCLOAK_REALM: ${keycloak_realm}
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
+      SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
+      MEDIA_PATH_PREFIX: ${media_path_prefix}
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.0.6
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.3.1
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:
@@ -111,16 +126,20 @@ services:
       KEYCLOAK_REALM: ${keycloak_realm}
       KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
       KEYCLOAK_CLIENT_SECRET: ${keycloak_client_secret}
+      SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
+      MEDIA_PATH_PREFIX: ${media_path_prefix}
   redis:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}
     volumes:
-      - {{ .Stack.Name }}_redis_data:/bitnami/redis/data
+      - {{ .Stack.Name }}_redis_data:/data
   elasticsearch:
     image: elasticsearch:7.13.2
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - TAKE_FILE_OWNERSHIP="true"
     ulimits:
       memlock:
         soft: -1

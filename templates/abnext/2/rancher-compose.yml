@@ -1,8 +1,8 @@
 .catalog:
   name: "ArtbutlerNext"
-  version: "0.1.0"
+  version: "0.3.0"
   description: "ArtbutlerNext Stack with API and Portal"
-  uuid: artbutler-next-0.1.0
+  uuid: artbutler-next-0.3.0
   minimum_rancher_version: v0.56.0
   questions:
     - variable: domain_list
@@ -144,6 +144,21 @@
       description: "Used for REST Communication, e.g create tenant"
       label: "Keycloak Client Secret"
       type: "password"
+      required: true
+    - variable: sentry_dsn
+      description: "Used for collecting errors in Sentry service"
+      label: "Sentry DSN"
+      type: "password"
+      required: true
+    - variable: public_file_baseurl
+      description: "Specifies the path to service which will proxying user uploads from the S3"
+      label: "Public file base URL"
+      type: "string"
+      required: true
+    - variable: media_path_prefix
+      description: "Specifies the media path prefix"
+      label: "Media path prefix"
+      type: "string"
       required: true
 
 letsencrypt:

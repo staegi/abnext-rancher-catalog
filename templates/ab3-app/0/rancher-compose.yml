@@ -1,0 +1,141 @@
+.catalog:
+  name: "ArtbutlerLight" 
+  version: "0.0.1"
+  description: "Artbutler Light Stack with API Frontend and Proxy"
+  uuid: artbutler-light-0.0.1
+  minimum_rancher_version: v1.6.25
+  questions:
+    # ab3 app variables #
+    - variable: IMAGINERY_BASE_URL
+      description: "URL of Imaginery application"
+      label: "IMAGINERY BASE URL"
+      type: "string"
+      default: https://files.artbutler.com
+      required: true
+    - variable: SHOWROOM_HOST
+      description: "Hostname of Showroom application"
+      label: "SHOWROOM HOST"
+      type: "string"
+      default: showrooms.artbutler.com
+      required: true
+    - variable: SHOWROOM_SCHEME
+      description: "Choose http or https connection of ab3 Showroom application"
+      label: "SHOWROOM SCHEME"
+      type: "string"
+      default: http  
+      required: true    
+    - variable: PG_DATABASE_URL
+      description: "Connection string for postgres database. Example: postgres://username:password@hostname:5432/DBname"
+      label: "Postgres DATABASE URL"
+      type: "string"
+      default: "postgres://uu18impe3iri3:password@ab3-postgres:5432/uu18impe3iri3"
+      required: true
+    - variable: BACKOFFICE_BASE_DOMAIN
+      description: "domain name for ab3 static, api and proxy applications"
+      label: "BACKOFFICE BASE DOMAIN"
+      type: "string"
+      default: artbutler.com
+      required: true  
+    - variable: BACKEND_SERVER_SCHEME
+      description: "Choose http or https connection of ab3 static, api and proxy applications"
+      label: "BACKEND SERVER SCHEME"
+      type: "string"
+      default: http
+      required: true  
+    - variable: DEBUG
+      description: "Debug mode"
+      label: "DEBUG"
+      type: "string"
+      default: False
+      required: true
+    - variable: PAYPAL_BUSINESS_EMAIL
+      description: "Mailbox for Paypal business needs"
+      label: "PAYPAL BUSINESS EMAIL"
+      type: "string"
+      default: payment-sandbox@artbutler.com
+      required: true
+    - variable: PAYPAL_VERIFY_SERVICE
+      description: "URL of Paypal sandbox"
+      label: "PAYPAL VERIFY SERVICE"
+      type: "string"
+      default: https://www.sandbox.paypal.com/cgi-bin/webscr
+      required: true
+    - variable: SMTP_USER
+      description: "SMTP Username of Paypal mailbox"
+      label: "SMTP USER"
+      type: "string"
+      default: ""
+      required: false
+    - variable: SMTP_PASSWORD
+      description: "SMTP password of Paypal mailbox"
+      label: "SMTP PASSWORD"
+      type: "string"
+      default: ""
+      required: false
+    - variable: SMTP_HOST
+      description: "SMTP hostname of Paypal mailbox"
+      label: "SMTP HOST"
+      type: "string"
+      default: ""
+      required: false
+    - variable: SMTP_PORT
+      description: "SMTP port of Paypal mailbox"
+      label: "SMTP PORT"
+      type: "string"
+      default: 587
+      required: true
+    - variable: SMTP_USE_TLS
+      description: "Choose whether to use TLS for SMTP connection"
+      label: "SMTP USE TLS"
+      type: "string"
+      default: True
+      required: true
+    - variable: EMAIL_FROM
+      description: "EMAIL FROM field"
+      label: "EMAIL FROM"
+      type: "string"
+      default: support@artbutler.com
+      required: true
+    - variable: RECAPTCHA_PRIVATE_KEY
+      description: "Recaptcha private key"
+      label: "RECAPTCHA PRIVATE KEY"
+      type: "string"
+      default: ""
+      required: false
+    - variable: PIWIK_SITE_ID
+      description: "PIWIK site ID"
+      label: "PIWIK SITE ID"
+      type: "string"
+      default: ""
+      required: false
+    - variable: GOOGLE_FONTS_API_KEY
+      description: "API key for Google fonts"
+      label: "GOOGLE FONTS API KEY"
+      type: "string"
+      default: ""
+      required: false
+    - variable: GOOGLE_MAPS_API_KEY
+      description: "API key for Google Maps"
+      label: "GOOGLE MAPS API KEY"
+      type: "string"
+      default: ""
+      required: false
+
+#letsencrypt:
+#  scale: 1
+#  start_on_create: true
+ab3-core:
+  scale: 1
+  start_on_create: true
+# Frontend cotainer commented because AWS ECR was not provided for it
+#ab3-frontend:
+#  scale: 1
+#  start_on_create: true
+ab3-proxy:
+  scale: 1
+  start_on_create: true  
+redis:
+  scale: 1
+  start_on_create: true
+
+

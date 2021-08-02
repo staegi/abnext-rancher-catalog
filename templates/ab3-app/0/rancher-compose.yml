@@ -120,10 +120,19 @@
       type: "string"
       default: ""
       required: false
+    - variable: redis_password
+      description: "Please specify Redis password. It should be a random value."
+      label: "redis password"
+      type: "password"
+      default: ""
+      required: true
 
-#letsencrypt:
-#  scale: 1
-#  start_on_create: true
+
+
+
+letsencrypt:
+  scale: 1
+  start_on_create: true
 ab3-core:
   scale: 1
   start_on_create: true

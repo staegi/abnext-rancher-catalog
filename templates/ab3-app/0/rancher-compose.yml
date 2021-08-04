@@ -136,10 +136,9 @@ letsencrypt:
 ab3-core:
   scale: 1
   start_on_create: true
-# Frontend cotainer commented because AWS ECR was not provided for it
-#ab3-frontend:
-#  scale: 1
-#  start_on_create: true
+ab3-frontend:
+  scale: 1
+  start_on_create: true
 ab3-proxy:
   scale: 1
   start_on_create: true  

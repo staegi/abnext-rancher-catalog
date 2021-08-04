@@ -25,8 +25,6 @@ services:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/core:latest
     depends_on:
       - redis
-      - frontend
-      - proxy
     restart: always    
     environment:
       IMAGINERY_BASE_URL: ${IMAGINERY_BASE_URL}
@@ -81,6 +79,9 @@ services:
     ports:
       - 80:80
     restart: always    
+    depends_on:
+      - ab3-core
+      - ab3-frontend
     environment:
       ### Showroom variables ###
       SHOWROOM_BACKEND_HOST: ab3-showroom:9010

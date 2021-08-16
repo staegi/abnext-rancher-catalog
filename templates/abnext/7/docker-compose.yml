@@ -40,7 +40,7 @@ services:
       VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
       VUE_APP_REST: "https://${app_url}"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.6.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.6.2
     container_name: laravel
     labels:
       ofelia.enabled: "true"
@@ -86,7 +86,7 @@ services:
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.6.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.6.2
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:

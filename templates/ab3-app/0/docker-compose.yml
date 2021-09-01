@@ -29,7 +29,7 @@ services:
     environment:
       IMAGINERY_BASE_URL: ${IMAGINERY_BASE_URL}
       SHOWROOM_BASE_URL: ${SHOWROOM_SCHEME}://${SHOWROOM_HOST}/
-      PG_DATABASE_URL: ${PG_DATABASE_URL}
+      DATABASE_URL: ${PG_DATABASE_URL}
       BACKOFFICE_BASE_DOMAIN: ${BACKOFFICE_BASE_DOMAIN}
       BACKOFFICE_BASE_URL: ${BACKEND_SERVER_SCHEME}://my.${BACKOFFICE_BASE_DOMAIN}
       DEBUG: ${DEBUG}
@@ -65,11 +65,6 @@ services:
     restart: always
     environment:
       FRONTEND_PREFIX: //static.${BACKOFFICE_BASE_DOMAIN}
-    # This fix finds all files with names app.*.nocache.js 
-    # and overrides values of window.frontendPrefix to 
-    # the $FRONTEND_PREFIX variable. After that Nginx starts.
-    # It is needed because $FRONTEND_PREFIX becomes hardcoded during the building of static files.
-    command: find -name "app.*.nocache.js" -exec sed -i "s~window.frontendPrefix = '.*'~window.frontendPrefix = '$FRONTEND_PREFIX'~" {} + && nginx -g 'daemon off;'
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'

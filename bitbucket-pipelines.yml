@@ -1,0 +1,10 @@
+image: atlassian/default-image:2
+
+pipelines:
+    tags:
+      v*.*.*:
+        - step:
+           script:
+             - git remote add github git@github.com:staegi/abnext-rancher-catalog.git
+             - git checkout tags/$BITBUCKET_TAG -b sync
+             - git push github sync

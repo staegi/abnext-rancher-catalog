@@ -103,7 +103,7 @@ services:
       - {{ .Stack.Name }}_redis_data:/data
 
 volumes:
-  {{ .Stack.Name }}_redis_data:
-    external: true
-    driver: rancher-nfs    
+  {{ .Stack.Name }}_redis_data: {}
+  #  external: true
+  #  driver: rancher-nfs    
   

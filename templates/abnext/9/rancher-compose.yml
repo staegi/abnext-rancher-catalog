@@ -60,6 +60,31 @@
       label: "Database password"
       type: "password"
       required: true
+    - variable: abl_db_host
+      description: "ArtButler Light Database host"
+      label: "ArtButler Light Database host"
+      type: "string"
+      required: true
+    - variable: abl_db_port
+      description: "ArtButler Light Database port"
+      label: "ArtButler Light Database port"
+      type: "string"
+      required: true
+    - variable: abl_db_database
+      description: "ArtButler Light Database name"
+      label: "ArtButler Light Database"
+      type: "string"
+      required: true
+    - variable: abl_db_username
+      description: "ArtButler Light Database user"
+      label: "ArtButler Light Database user"
+      type: "string"
+      required: true
+    - variable: abl_db_password
+      description: "ArtButler Light Database password"
+      label: "ArtButler Light Database password"
+      type: "password"
+      required: true
     - variable: redis_password
       description: "Password used by Redis container and Laravel connection"
       label: "Redis password"

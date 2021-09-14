@@ -41,7 +41,7 @@ services:
       VUE_APP_REST: "https://${app_url}"
       VUE_APP_VERSION: "0.8.0"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.8.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.8.2
     container_name: laravel
     labels:
       ofelia.enabled: "true"
@@ -60,6 +60,11 @@ services:
       DB_USERNAME: ${db_username}
       DB_SYSTEM_USERNAME: ${db_system_username}
       DB_PASSWORD: ${db_password}
+      ABL_DB_HOST: ${abl_db_host}
+      ABL_DB_PORT: ${abl_db_port}
+      ABL_DB_DATABASE: ${abl_db_database}
+      ABL_DB_USERNAME: ${abl_db_username}
+      ABL_DB_PASSWORD: ${abl_db_password}
       REDIS_HOST: redis
       REDIS_PASSWORD: ${redis_password}
       REDIS_PORT: 6379
@@ -87,7 +92,7 @@ services:
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.8.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.8.2
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:
@@ -103,6 +108,11 @@ services:
       DB_USERNAME: ${db_username}
       DB_SYSTEM_USERNAME: ${db_system_username}
       DB_PASSWORD: ${db_password}
+      ABL_DB_HOST: ${abl_db_host}
+      ABL_DB_PORT: ${abl_db_port}
+      ABL_DB_DATABASE: ${abl_db_database}
+      ABL_DB_USERNAME: ${abl_db_username}
+      ABL_DB_PASSWORD: ${abl_db_password}
       REDIS_HOST: redis
       REDIS_PASSWORD: ${redis_password}
       REDIS_PORT: 6379

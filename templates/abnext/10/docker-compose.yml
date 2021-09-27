@@ -92,6 +92,7 @@ services:
       MEDIA_PATH_PREFIX: ${media_path_prefix}
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
+      APP_DEBUG: ${app_debug}
   horizon:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.9.2
     user: abx
@@ -141,6 +142,7 @@ services:
       MEDIA_PATH_PREFIX: ${media_path_prefix}
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
+      APP_DEBUG: ${app_debug}
   redis:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}

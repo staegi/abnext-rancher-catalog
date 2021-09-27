@@ -195,6 +195,11 @@
       label: "Media path prefix"
       type: "string"
       required: true
+    - variable: app_debug
+      description: "Debug mode"
+      label: "Debug mode"
+      type: "boolean"
+      required: true
 
 letsencrypt:
   scale: 1

@@ -41,7 +41,7 @@ services:
       VUE_APP_REST: "https://${app_url}"
       VUE_APP_VERSION: "0.9.0"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.9.3
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.9.4
     container_name: laravel
     labels:
       ofelia.enabled: "true"
@@ -94,7 +94,7 @@ services:
       FILESYSTEM_DRIVER: s3
       APP_DEBUG: ${app_debug}
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.9.3
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.9.4
     user: abx
     command: 'php /var/www/html/artisan horizon'
     environment:

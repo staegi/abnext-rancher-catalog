@@ -71,9 +71,7 @@ services:
 
   ab3-proxy:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:latest
-    ports:
-      - 80:80
-    restart: always    
+    restart: always
     depends_on:
       - ab3-core
       - ab3-frontend

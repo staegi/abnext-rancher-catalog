@@ -48,7 +48,7 @@ services:
       GOOGLE_FONTS_API_KEY: ${GOOGLE_FONTS_API_KEY}
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
       REDIS_WORKER_ENABLED: True
-      REDISCLOUD_URL: redis://:${redis_password}@redis:6379
+      REDIS_URL: redis://:${redis_password}@redis:6379
       RABBITMQ_HOST: ""
       RABBITMQ_PORT: ""
       RABBITMQ_USER: ""

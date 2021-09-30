@@ -7,7 +7,7 @@ services:
       API_VERSION: Production
       CERT_NAME: {{ .Stack.Name }}
       DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
-      DOMAINS: ${ADMIN_HOST},${FRONTEND_HOST},${SHOWROOM_HOST},${API_HOST}
+      DOMAINS: ${ADMIN_HOST},${FRONTEND_HOST},${SHOWROOM_HOST},${SHOWROOM_ALT_HOST},${API_HOST}
       EMAIL: serviceadmin@artbutler.com
       EULA: 'Yes'
       PROVIDER: HTTP

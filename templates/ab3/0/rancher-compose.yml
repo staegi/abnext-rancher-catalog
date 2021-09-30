@@ -5,11 +5,6 @@
   uuid: artbutler-light-0.0.1
   minimum_rancher_version: v1.6.25
   questions:
-    # Let's Encrypt variables #
-    - variable: domain_list
-      description: "Comma seperated list of domains"
-      label: "Domains"
-      type: "string"
     # ab3 app variables #
     - variable: IMAGINERY_BASE_URL
       description: "URL of Imaginery application"
@@ -17,11 +12,35 @@
       type: "string"
       default: https://files.artbutler.com
       required: true
+    - variable: API_HOST
+      description: "Hostname of API application"
+      label: "API HOST"
+      type: "string"
+      default: api.artbutler.com
+      required: true
+    - variable: ADMIN_HOST
+      description: "Hostname of admin application"
+      label: "ADMIN HOST"
+      type: "string"
+      default: my.artbutler.com
+      required: true
+    - variable: FRONTEND_HOST
+      description: "Hostname of frontend application"
+      label: "FRONTEND HOST"
+      type: "string"
+      default: static.artbutler.com
+      required: true
     - variable: SHOWROOM_HOST
       description: "Hostname of Showroom application"
       label: "SHOWROOM HOST"
       type: "string"
       default: showrooms.artbutler.com
+      required: true
+    - variable: SHOWROOM_ALT_HOST
+      description: "Hostname of alternative Showroom application"
+      label: "SHOWROOM ALT HOST"
+      type: "string"
+      default: showroom.artbutler.com
       required: true
     - variable: SHOWROOM_SCHEME
       description: "Choose http or https connection of ab3 Showroom application"

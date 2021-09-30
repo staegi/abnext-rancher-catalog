@@ -7,7 +7,7 @@ services:
       API_VERSION: Production
       CERT_NAME: {{ .Stack.Name }}
       DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
-      DOMAINS: ${domain_list}
+      DOMAINS: ${ADMIN_HOST},${FRONTEND_HOST},${SHOWROOM_HOST},${API_HOST}
       EMAIL: serviceadmin@artbutler.com
       EULA: 'Yes'
       PROVIDER: HTTP
@@ -31,9 +31,9 @@ services:
       SHOWROOM_BASE_URL: ${SHOWROOM_SCHEME}://${SHOWROOM_HOST}/
       DATABASE_URL: ${PG_DATABASE_URL}
       BACKOFFICE_BASE_DOMAIN: ${BACKOFFICE_BASE_DOMAIN}
-      BACKOFFICE_BASE_URL: ${BACKEND_SERVER_SCHEME}://my.${BACKOFFICE_BASE_DOMAIN}
+      BACKOFFICE_BASE_URL: ${BACKEND_SERVER_SCHEME}://${ADMIN_HOST}
       DEBUG: ${DEBUG}
-      FRONTEND_PREFIX: ${BACKEND_SERVER_SCHEME}://static.${BACKOFFICE_BASE_DOMAIN}
+      FRONTEND_PREFIX: ${BACKEND_SERVER_SCHEME}://${FRONTEND_HOST}
       PAYPAL_BUSINESS_EMAIL: ${PAYPAL_BUSINESS_EMAIL}
       PAYPAL_VERIFY_SERVICE: ${PAYPAL_VERIFY_SERVICE}
       SMTP_USER: ${SMTP_USER}
@@ -44,7 +44,7 @@ services:
       EMAIL_FROM: ${EMAIL_FROM}
       RECAPTCHA_PRIVATE_KEY: ${RECAPTCHA_PRIVATE_KEY}
       PIWIK_SITE_ID: ${PIWIK_SITE_ID}
-      WEBSITES_API_BASE_URL: ${BACKEND_SERVER_SCHEME}://api.${BACKOFFICE_BASE_DOMAIN}
+      WEBSITES_API_BASE_URL: ${BACKEND_SERVER_SCHEME}://${API_HOST}
       GOOGLE_FONTS_API_KEY: ${GOOGLE_FONTS_API_KEY}
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
       REDIS_WORKER_ENABLED: True
@@ -64,7 +64,7 @@ services:
     image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/frontend:latest
     restart: always
     environment:
-      FRONTEND_PREFIX: //static.${BACKOFFICE_BASE_DOMAIN}
+      FRONTEND_PREFIX: //${FRONTEND_HOST}
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
@@ -81,7 +81,7 @@ services:
       ### Showroom variables ###
       SHOWROOM_BACKEND_HOST: ab3-showroom:9010
       SHOWROOM_HOST: ${SHOWROOM_HOST}
-      SHOWROOM_COMPATABILITY_HOST: showroom.${BACKOFFICE_BASE_DOMAIN}
+      SHOWROOM_COMPATABILITY_HOST: ${SHOWROOM_ALT_HOST}
       SHOWROOM_SCHEME: ${SHOWROOM_SCHEME}
       SHOWROOM_BACKEND_SCHEME: http
       ### Websites variables ###
@@ -91,7 +91,7 @@ services:
       ### Frontend variables ###
       FRONTEND_SERVER: ab3-frontend:8888
       FRONTEND_SERVER_SCHEME: ${BACKEND_SERVER_SCHEME}
-      FRONTEND_HOST: static.${BACKOFFICE_BASE_DOMAIN}
+      FRONTEND_HOST: ${FRONTEND_HOST}
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'

@@ -1,0 +1,4 @@
+name: Gotenberg 
+description: A Docker-powered stateless API for PDF files
+version: 0.0.1
+category: Custom

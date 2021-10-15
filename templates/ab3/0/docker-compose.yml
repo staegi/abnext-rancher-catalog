@@ -1,0 +1,107 @@
+version: '2'
+
+services:
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      API_VERSION: Production
+      CERT_NAME: {{ .Stack.Name }}
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      DOMAINS: ${ADMIN_HOST},${FRONTEND_HOST},${SHOWROOM_HOST},${SHOWROOM_ALT_HOST},${API_HOST}
+      EMAIL: serviceadmin@artbutler.com
+      EULA: 'Yes'
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+    volumes:
+    - /var/lib/rancher:/var/lib/rancher
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+
+  ab3-core:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/core:latest
+    depends_on:
+      - redis
+    restart: always    
+    environment:
+      IMAGINERY_BASE_URL: ${IMAGINERY_BASE_URL}
+      SHOWROOM_BASE_URL: ${SHOWROOM_SCHEME}://${SHOWROOM_HOST}/
+      DATABASE_URL: ${PG_DATABASE_URL}
+      BACKOFFICE_BASE_DOMAIN: ${BACKOFFICE_BASE_DOMAIN}
+      BACKOFFICE_BASE_URL: ${BACKEND_SERVER_SCHEME}://${ADMIN_HOST}
+      DEBUG: ${DEBUG}
+      FRONTEND_PREFIX: ${BACKEND_SERVER_SCHEME}://${FRONTEND_HOST}
+      PAYPAL_BUSINESS_EMAIL: ${PAYPAL_BUSINESS_EMAIL}
+      PAYPAL_VERIFY_SERVICE: ${PAYPAL_VERIFY_SERVICE}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USE_TLS: ${SMTP_USE_TLS}
+      EMAIL_FROM: ${EMAIL_FROM}
+      RECAPTCHA_PRIVATE_KEY: ${RECAPTCHA_PRIVATE_KEY}
+      PIWIK_SITE_ID: ${PIWIK_SITE_ID}
+      WEBSITES_API_BASE_URL: ${BACKEND_SERVER_SCHEME}://${API_HOST}
+      GOOGLE_FONTS_API_KEY: ${GOOGLE_FONTS_API_KEY}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
+      REDIS_WORKER_ENABLED: True
+      REDIS_URL: redis://:${redis_password}@redis:6379
+      RABBITMQ_HOST: ""
+      RABBITMQ_PORT: ""
+      RABBITMQ_USER: ""
+      RABBITMQ_PASSWORD: ""
+      RABBITMQ_EXCHANGE: ""
+      SSLIFY_DISABLE: True
+      DJANGO_SETTINGS_MODULE: ab3.settings
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+      
+  ab3-frontend:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/frontend:latest
+    restart: always
+    environment:
+      FRONTEND_PREFIX: //${FRONTEND_HOST}
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+
+  ab3-proxy:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:latest
+    restart: always
+    depends_on:
+      - ab3-core
+      - ab3-frontend
+    environment:
+      ### Showroom variables ###
+      SHOWROOM_BACKEND_HOST: ab3-showroom:9010
+      SHOWROOM_HOST: ${SHOWROOM_HOST}
+      SHOWROOM_COMPATABILITY_HOST: ${SHOWROOM_ALT_HOST}
+      SHOWROOM_SCHEME: ${SHOWROOM_SCHEME}
+      SHOWROOM_BACKEND_SCHEME: http
+      ### Websites variables ###
+      BACKEND_SERVER: ab3-core:8000 
+      BACKEND_SERVER_SCHEME: ${BACKEND_SERVER_SCHEME}
+      BACKEND_HOST: ${BACKOFFICE_BASE_DOMAIN}
+      ### Frontend variables ###
+      FRONTEND_SERVER: ab3-frontend:8888
+      FRONTEND_SERVER_SCHEME: ${BACKEND_SERVER_SCHEME}
+      FRONTEND_HOST: ${FRONTEND_HOST}
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+
+  redis:
+    image: redis:6.2.4
+    command: redis-server --requirepass ${redis_password}
+    volumes:
+      - {{ .Stack.Name }}_redis_data:/data
+
+volumes:
+  {{ .Stack.Name }}_redis_data:
+    external: true
+    driver: rancher-nfs    
+  

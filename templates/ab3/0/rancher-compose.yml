@@ -1,5 +1,5 @@
 .catalog:
-  name: "ArtbutlerLight" 
+  name: "ArtbutlerLight"
   version: "0.0.1"
   description: "Artbutler Light Stack with API Frontend and Proxy"
   uuid: artbutler-light-0.0.1
@@ -27,8 +27,8 @@
       description: "Choose http or https connection of ab3 Showroom application"
       label: "SHOWROOM SCHEME"
       type: "string"
-      default: http  
-      required: true    
+      default: http
+      required: true
     - variable: PG_DATABASE_URL
       description: "Connection string for postgres database. Example: postgres://username:password@hostname:5432/DBname"
       label: "Postgres DATABASE URL"
@@ -40,13 +40,13 @@
       label: "BACKOFFICE BASE DOMAIN"
       type: "string"
       default: artbutler.com
-      required: true  
+      required: true
     - variable: BACKEND_SERVER_SCHEME
       description: "Choose http or https connection of ab3 static, api and proxy applications"
       label: "BACKEND SERVER SCHEME"
       type: "string"
       default: http
-      required: true  
+      required: true
     - variable: DEBUG
       description: "Debug mode"
       label: "DEBUG"
@@ -131,6 +131,24 @@
       type: "password"
       default: ""
       required: true
+    - variable: RABBITMQ_USER
+      description: "Please specify RabbitMQ user name."
+      label: "RABBITMQ USER"
+      type: "string"
+      default: "admin"
+      required: true
+    - variable: RABBITMQ_PASSWORD
+      description: "Please specify RabbitMQ password."
+      label: "RABBITMQ PASSWORD"
+      type: "password"
+      default: ""
+      required: true
+    - variable: RABBITMQ_EXCHANGE
+      description: "Please specify RabbitMQ exchange queue."
+      label: "RABBITMQ EXCHANGE"
+      type: "string"
+      default: "file-purge"
+      required: true
 
 
 
@@ -146,7 +164,7 @@ ab3-frontend:
   start_on_create: true
 ab3-proxy:
   scale: 1
-  start_on_create: true  
+  start_on_create: true
 redis:
   scale: 1
   start_on_create: true

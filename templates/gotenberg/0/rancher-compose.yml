@@ -1,38 +1,29 @@
 .catalog:
-  name: "Gotenberg" 
+  name: "Gotenberg"
   version: "0.0.1"
   description: "A Docker-powered stateless API for PDF files"
   uuid: gotenberg-0.0.1
   minimum_rancher_version: v1.6.25
   questions:
-    - variable: API_PORT
-      description: "Gotenberg API port"
-      label: "API PORT"
-      type: "string"
-      default: "8889"
-      required: true
-    - variable: api-read-timeout
+    - variable: api_read_timeout
       description: "Gotenberg API read timeout value"
       label: "api read timeout"
       type: "string"
       default: "3600s"
-      required: true      
-    - variable: api-process-timeout
+      required: true
+    - variable: api_process_timeout
       description: "Gotenberg API process timeout value"
       label: "api process timeout"
       type: "string"
       default: "3600s"
-      required: true       
-    - variable: api-write-timeout
+      required: true
+    - variable: api_write_timeout
       description: "Gotenberg API write timeout value"
       label: "api write timeout"
       type: "string"
       default: "3600s"
-      required: true                         
+      required: true
 
 gotenberg:
   scale: 1
   start_on_create: true
-
-
-

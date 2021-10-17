@@ -3,12 +3,4 @@ version: '2'
 services:
   gotenberg:
     image: gotenberg/gotenberg:7
-    command:
-      - "gotenberg"
-      - "--api-port=8889"
-      - "--api-read-timeout=${api-read-timeout}"
-      - "--api-process-timeout=${api-process-timeout}"
-      - "--api-write-timeout=${api-write-timeout}"
-    ports:
-      - "${API_PORT}:8889"
-  
+    command: gotenberg --api-read-timeout=${api_read_timeout} --api-process-timeout=${api_process_timeout} --api-write-timeout=${api_write_timeout}

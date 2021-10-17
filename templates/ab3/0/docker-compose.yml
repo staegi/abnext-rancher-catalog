@@ -49,13 +49,15 @@ services:
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
       REDIS_WORKER_ENABLED: True
       REDIS_URL: redis://:${redis_password}@redis:6379
-      RABBITMQ_HOST: ""
-      RABBITMQ_PORT: ""
-      RABBITMQ_USER: ""
-      RABBITMQ_PASSWORD: ""
-      RABBITMQ_EXCHANGE: ""
-      SSLIFY_DISABLE: True
       DJANGO_SETTINGS_MODULE: ab3.settings
+      RABBITMQ_HOST: "rabbitmq"
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USER: "${RABBITMQ_USER}"
+      RABBITMQ_PASSWORD: "${RABBITMQ_PASSWORD}"
+      RABBITMQ_EXCHANGE: "${RABBITMQ_EXCHANGE}"
+      SSLIFY_DISABLE: True
+    external_links:
+    - rabbit/rabbitmq:rabbitmq
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
@@ -70,7 +72,7 @@ services:
       io.rancher.container.create_agent: 'true'
 
   ab3-proxy:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:latest
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:0.0.3
     restart: always
     depends_on:
       - ab3-core

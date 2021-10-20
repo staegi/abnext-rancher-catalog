@@ -194,6 +194,10 @@
       description: "Specifies the media path prefix"
       label: "Media path prefix"
       type: "string"
+    - variable: showroom_viewer_baseurl
+      description: "Specifies the URL for showroom viewer"
+      label: "Showroom viewer url"
+      type: "string"
       required: true
     - variable: app_debug
       description: "Debug mode"

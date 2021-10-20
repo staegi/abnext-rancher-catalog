@@ -92,6 +92,7 @@ services:
       PUBLIC_FILE_BASEURL: ${public_file_baseurl}
       CLIENT_IMPORT_STATUS_URL: ${client_import_status_url}
       MEDIA_PATH_PREFIX: ${media_path_prefix}
+      SHOWROOM_VIEWER_BASEURL: ${showroom_viewer_baseurl}
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
       APP_DEBUG: ${app_debug}
@@ -147,6 +148,7 @@ services:
       PUBLIC_FILE_BASEURL: ${public_file_baseurl}
       CLIENT_IMPORT_STATUS_URL: ${client_import_status_url}
       MEDIA_PATH_PREFIX: ${media_path_prefix}
+      SHOWROOM_VIEWER_BASEURL: ${showroom_viewer_baseurl}
       MEDIA_DISK: s3
       FILESYSTEM_DRIVER: s3
       APP_DEBUG: ${app_debug}

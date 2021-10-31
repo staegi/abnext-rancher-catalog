@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  imaginary:
+    image: h2non/imaginary:1.2.4
+    environment:
+      MALLOC_ARENA_MAX: '2'
+    command: -enable-url-source -http-cache-ttl '31556926' -concurrency '20'

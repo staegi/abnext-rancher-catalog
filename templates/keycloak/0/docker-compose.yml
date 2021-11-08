@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  keycloak:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/artbutler/keycloak:8.0.1.2
+    environment:
+      DB_PASSWORD: ${db_pass}
+      DB_ADDR: ${db_host}
+      DB_PORT: ${db_host}
+      DB_USER: ${db_user}
+      DB_VENDOR: MYSQL
+      DB_DATABASE: ${db_name}
+      KEYCLOAK_USER: ${keycloak_user}
+      KEYCLOAK_PASSWORD: ${keycloak_pass}
+      KEYCLOAK_LOGLEVEL: INFO
+      ROOT_LOGLEVEL: INFO
+      PROXY_ADDRESS_FORWARDING: 'true'
+      JDBC_PARAMS: useSSL=false
+    user: jboss
+    working_dir: /opt/jboss/keycloak
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      DOMAINS: ${domain}
+      EMAIL: serviceadmin@artbutler.com
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      API_VERSION: Production
+      PROVIDER: HTTP
+      EULA: 'Yes'
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+      CERT_NAME: {{ .Stack.Name }}
+    volumes:
+      - /var/lib/rancher:/var/lib/rancher
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'

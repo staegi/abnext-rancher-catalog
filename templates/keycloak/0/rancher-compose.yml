@@ -1,0 +1,55 @@
+.catalog:
+  name: "Keycloak"
+  version: "8.0.1"
+  description: "Open Source Identity and Access Management"
+  uuid: keycloak-8.0.1
+  minimum_rancher_version: v1.6.25
+  questions:
+    - variable: db_host
+      description: "database host"
+      label: "Database host"
+      type: "string"
+      required: true
+    - variable: db_port
+      description: "database port"
+      label: "Database port"
+      type: "string"
+      default: "3306"
+      required: true
+    - variable: db_name
+      description: "database name"
+      label: "Database name"
+      type: "string"
+      required: true
+    - variable: db_user
+      description: "database user"
+      label: "Database user"
+      type: "string"
+      required: true
+    - variable: db_pass
+      description: "database password"
+      label: "Database password"
+      type: "password"
+      required: true
+    - variable: keycloak_user
+      description: "username for keycloak"
+      label: "Keycloak username"
+      type: "string"
+      required: true
+    - variable: keycloak_pass
+      description: "password for keycloak"
+      label: "Keycloak password"
+      type: "password"
+      required: true
+    - variable: domain
+      description: "domain name"
+      label: "Domain"
+      type: "string"
+      required: true
+
+keycloak:
+  scale: 1
+  start_on_create: true
+letsencrypt:
+  scale: 1
+  start_on_create: true

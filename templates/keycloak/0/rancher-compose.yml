@@ -39,7 +39,7 @@
     - variable: keycloak_pass
       description: "password for keycloak"
       label: "Keycloak password"
-      type: "string"
+      type: "password"
       required: true
     - variable: domain
       description: "domain name"

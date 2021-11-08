@@ -1,0 +1,30 @@
+.catalog:
+  name: "Files Proxy"
+  version: "0.1.1"
+  description: "NGINX proxy to cache files"
+  uuid: files-proxy-0.1.1
+  minimum_rancher_version: v1.6.25
+  questions:
+    - variable: aws_bucket_name
+      description: "AWS bucket name"
+      label: "AWS bucket name"
+      type: "string"
+      required: true
+      default: "artbutler"
+    - variable: aws_bucket_root
+      description: "AWS bucket root directory"
+      label: "AWS bucket root"
+      type: "string"
+      required: true
+    - variable: domain
+      description: "domain name"
+      label: "Domain"
+      type: "string"
+      required: true
+
+proxy:
+  scale: 2
+  start_on_create: true
+letsencrypt:
+  scale: 1
+  start_on_create: true

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   ofelia:
-    image: mcuadros/ofelia:0.3.6
+    image: mcuadros/ofelia:v0.3.6
     command: daemon --docker
     environment:
       TZ: Europe/Berlin

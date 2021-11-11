@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  ofelia:
+    image: mcuadros/ofelia:0.3.6
+    command: daemon --docker
+    environment:
+      TZ: Europe/Berlin
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.job-local.daily-reboot.schedule: 0 0 0 * * *
+      ofelia.job-local.daily-reboot.command: reboot

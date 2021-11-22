@@ -41,7 +41,7 @@ services:
       VUE_APP_REST: "https://${app_url}"
       VUE_APP_VERSION: "0.13.0"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.13.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.13.2
     container_name: laravel
     external_links:
       - gotenberg/gotenberg:gotenberg
@@ -101,7 +101,7 @@ services:
     links:
       - redis:redis
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.13.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.13.2
     user: abx
     command: 'php /var/www/html/artisan horizon'
     external_links:

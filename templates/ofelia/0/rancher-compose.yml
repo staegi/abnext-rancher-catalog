@@ -1,0 +1,10 @@
+.catalog:
+  name: "Ofelia"
+  version: "0.3.6"
+  description: "Ofelia is a modern and low footprint job scheduler"
+  uuid: ofelia-0.3.6
+  minimum_rancher_version: v1.6.25
+
+ofelia:
+  scale: 1
+  start_on_create: true

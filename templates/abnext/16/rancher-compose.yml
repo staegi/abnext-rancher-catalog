@@ -175,8 +175,13 @@
       label: "Keycloak Client Id"
       type: "string"
       required: true
-    - variable: keycloak_client_secret
-      description: "Used for REST Communication, e.g create tenant"
+    - variable: api_keycloak_client_id
+      description: "Used for REST Communication from admin app, e.g receive token"
+      label: "API Keycloak Client Id"
+      type: "string"
+      required: true
+    - variable: api_keycloak_client_secret
+      description: "Used for REST Communication from API, e.g create tenant"
       label: "Keycloak Client Secret"
       type: "password"
       required: true

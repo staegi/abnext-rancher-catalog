@@ -1,6 +1,6 @@
 .catalog:
   name: "ArtbutlerNext"
-  version: "0.14.0"
+  version: "0.15.0"
   description: "ArtbutlerNext Stack with API and Portal"
   uuid: artbutler-next-0.15.0
   minimum_rancher_version: v0.56.0

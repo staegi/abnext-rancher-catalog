@@ -27,7 +27,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   vue:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.15.4
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.16.1
     environment:
       VUE_APP_BASE_URL: "/"
       VUE_APP_ENV_NAME: "production"
@@ -39,9 +39,9 @@ services:
       VUE_APP_NODE_ENV: "production"
       VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
       VUE_APP_REST: "https://${app_url}"
-      VUE_APP_VERSION: "0.15.0"
+      VUE_APP_VERSION: "0.16.0"
   laravel:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.15.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.16.3
     container_name: laravel
     external_links:
       - gotenberg/gotenberg:gotenberg
@@ -104,7 +104,7 @@ services:
     links:
       - redis:redis
   horizon:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.15.1
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.16.3
     user: abx
     command: 'php /var/www/html/artisan horizon'
     external_links:

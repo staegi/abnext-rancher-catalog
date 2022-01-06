@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  proxy:
+    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/files-proxy:0.3.0
+    environment:
+      AWS_BUCKET_NAME: ${aws_bucket_name}
+      AWS_BUCKET_ROOT: ${aws_bucket_root}
+      IMAGINARY_HOST: imaginary
+      IMAGINARY_PORT: 9000
+      IMAGINARY_SCHEME: http
+      IMAGINARY_QUALITY: ${jpeg_quality}
+    external_links:
+      - imaginary/imaginary:imaginary
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      DOMAINS: ${domain}
+      EMAIL: serviceadmin@artbutler.com
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      API_VERSION: Production
+      PROVIDER: HTTP
+      EULA: 'Yes'
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+      CERT_NAME: {{ .Stack.Name }}
+    volumes:
+      - /var/lib/rancher:/var/lib/rancher
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'

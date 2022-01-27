@@ -16,6 +16,7 @@ services:
       ROOT_LOGLEVEL: INFO
       PROXY_ADDRESS_FORWARDING: 'true'
       JDBC_PARAMS: useSSL=false
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.token_exchange=enabled
     user: jboss
     working_dir: /opt/jboss/keycloak
   letsencrypt:

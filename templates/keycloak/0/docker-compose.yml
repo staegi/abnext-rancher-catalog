@@ -2,7 +2,7 @@ version: '2'
 
 services:
   keycloak:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/artbutler/keycloak:8.0.1.3
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/artbutler/keycloak:8.0.1.3
     environment:
       DB_PASSWORD: ${db_pass}
       DB_ADDR: ${db_host}

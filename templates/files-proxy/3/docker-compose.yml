@@ -2,7 +2,7 @@ version: '2'
 
 services:
   proxy:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/abnext/files-proxy:0.3.0
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/files-proxy:0.3.0
     environment:
       AWS_BUCKET_NAME: ${aws_bucket_name}
       AWS_BUCKET_ROOT: ${aws_bucket_root}

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   keycloak:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/artbutler/keycloak:8.0.1.2
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/artbutler/keycloak:8.0.1.3
     environment:
       DB_PASSWORD: ${db_pass}
       DB_ADDR: ${db_host}
@@ -16,6 +16,7 @@ services:
       ROOT_LOGLEVEL: INFO
       PROXY_ADDRESS_FORWARDING: 'true'
       JDBC_PARAMS: useSSL=false
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.token_exchange=enabled
     user: jboss
     working_dir: /opt/jboss/keycloak
   letsencrypt:

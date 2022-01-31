@@ -22,7 +22,7 @@ services:
       io.rancher.container.create_agent: 'true'
 
   ab3-core:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/core:latest
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/ab3/core:latest
     depends_on:
       - redis
     restart: always    
@@ -63,7 +63,7 @@ services:
       io.rancher.container.create_agent: 'true'
       
   ab3-frontend:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/frontend:latest
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/ab3/frontend:latest
     restart: always
     environment:
       FRONTEND_PREFIX: //${FRONTEND_HOST}
@@ -72,7 +72,7 @@ services:
       io.rancher.container.create_agent: 'true'
 
   ab3-proxy:
-    image: 438817670771.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:0.0.3
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/ab3/proxy:0.0.3
     restart: always
     depends_on:
       - ab3-core

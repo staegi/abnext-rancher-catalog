@@ -1,0 +1,48 @@
+.catalog:
+  name: "Matomo"
+  version: "4.7.1.0"
+  description: "Matomo (formerly Piwik) stack with Let's encrypt and archiving"
+  uuid: matomo-4.7.1.0
+  minimum_rancher_version: v0.56.0
+  questions:
+    - variable: database_name
+      description: "Name of the Matomo database"
+      label: "Database name"
+      type: "string"
+      default: "matomo"
+      required: true
+    - variable: database_tables_prefix
+      description: "Tables prefix of the Matomo database"
+      label: "Database tables prefix"
+      type: "string"
+      default: "piwik_"
+      required: true
+    - variable: database_user
+      description: "User of the Matomo database"
+      label: "Database user"
+      type: "string"
+      default: "matomo"
+      required: true
+    - variable: database_password
+      description: "Password of the Matomo database"
+      label: "Database password"
+      type: "password"
+      required: true
+    - variable: domain_list
+      description: "Comma seperated list of domains"
+      label: "Domains"
+      type: "string"
+      required: true
+
+archiver:
+  scale: 1
+  start_on_create: true
+nginx:
+  scale: 1
+  start_on_create: true
+letsencrypt:
+  scale: 1
+  start_on_create: true
+matomo:
+  scale: 1
+  start_on_create: true

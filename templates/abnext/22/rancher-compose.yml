@@ -1,0 +1,257 @@
+.catalog:
+  name: "ArtbutlerNext"
+  version: "0.20.0"
+  description: "ArtbutlerNext Stack with API and Portal"
+  uuid: artbutler-next-0.20.0
+  minimum_rancher_version: v0.56.0
+  questions:
+    - variable: domain_list
+      description: "Comma seperated list of domains"
+      label: "Domains"
+      type: "string"
+      required: true
+    - variable: app_env
+      description: "Possible values: staging | production"
+      label: "Application Environment"
+      type: "string"
+      required: true
+    - variable: app_key
+      description: "Random string required for encrypting sensitive data. Recommended passing in base64 format (e.g. base64:/neowkwb83L57ch9d1inlLRt0BN/pESZg4hNjv55ssA=)"
+      label: "Application Key"
+      type: "password"
+      required: true
+    - variable: app_url
+      description: "The URL of Laravel Backend part of ArtbutlerNext"
+      label: "Application URL"
+      type: "string"
+      required: true
+    - variable: log_channel
+      description: "Here you may configure the log channels for your application. Out of the box, Laravel uses the Monolog PHP logging library. This gives you a variety of powerful log handlers / formatters to utilize."
+      label: "Log Channel"
+      type: "string"
+      required: false
+    - variable: db_host
+      description: "Postgres Database host"
+      label: "Database host"
+      type: "string"
+      required: true
+    - variable: db_port
+      description: "Postgres Database port"
+      label: "Database port"
+      type: "string"
+      required: true
+    - variable: db_database
+      description: "Database name"
+      label: "Database"
+      type: "string"
+      required: true
+    - variable: db_username
+      description: "Database user"
+      label: "Database user"
+      type: "string"
+      required: true
+    - variable: db_system_username
+      description: "Database system user"
+      label: "Database system user"
+      type: "string"
+      required: true
+    - variable: db_password
+      description: "Database password"
+      label: "Database password"
+      type: "password"
+      required: true
+    - variable: abl_db_host
+      description: "ArtButler Light Database host"
+      label: "ArtButler Light Database host"
+      type: "string"
+      required: true
+    - variable: abl_db_port
+      description: "ArtButler Light Database port"
+      label: "ArtButler Light Database port"
+      type: "string"
+      required: true
+    - variable: abl_db_database
+      description: "ArtButler Light Database name"
+      label: "ArtButler Light Database"
+      type: "string"
+      required: true
+    - variable: abl_db_username
+      description: "ArtButler Light Database user"
+      label: "ArtButler Light Database user"
+      type: "string"
+      required: true
+    - variable: abl_db_password
+      description: "ArtButler Light Database password"
+      label: "ArtButler Light Database password"
+      type: "password"
+      required: true
+    - variable: redis_password
+      description: "Password used by Redis container and Laravel connection"
+      label: "Redis password"
+      type: "password"
+      required: true
+    - variable: smtp_host
+      description: "Used for sending emails from the system"
+      label: "SMTP Host"
+      type: "string"
+      required: true
+    - variable: smtp_port
+      description: "Used for sending emails from the system"
+      label: "SMTP Port"
+      type: "string"
+      required: true
+    - variable: smtp_username
+      description: "Used for sending emails from the system"
+      label: "SMTP Username"
+      type: "string"
+      required: true
+    - variable: smtp_password
+      description: "Used for sending emails from the system"
+      label: "SMTP Password"
+      type: "password"
+      required: true
+    - variable: smtp_encryption
+      description: "Default value: TLS"
+      label: "SMTP Encryption type"
+      type: "string"
+      required: false
+    - variable: smtp_from_address
+      description: "Email address visible as from"
+      label: "SMTP From address"
+      type: "string"
+      required: true
+    - variable: smtp_from_name
+      description: "Item as from name"
+      label: "SMTP From name"
+      type: "string"
+      required: true
+    - variable: aws_access_key_id
+      description: "Required for communication with S3"
+      label: "AWS Access Key Id"
+      type: "string"
+      required: true
+    - variable: aws_secret_access_key
+      description: "Required for communication with S3"
+      label: "AWS Secret Access Key"
+      type: "password"
+      required: true
+    - variable: aws_default_region
+      description: "Required for communication with S3"
+      label: "AWS Default Region"
+      type: "string"
+      required: true
+    - variable: aws_bucket
+      description: "Required for communication with S3"
+      label: "AWS Bucket"
+      type: "string"
+      required: true
+    - variable: keycloak_realm_public_key
+      description: "Used for validation token"
+      label: "Keycloak Realm Public Key"
+      type: "string"
+      required: true
+    - variable: keycloak_allowed_resources
+      description: "Used for validation token"
+      label: "Keycloak Allowed Resources"
+      type: "string"
+      required: true
+    - variable: keycloak_base_url
+      description: "Used for REST Communication, e.g create tenant"
+      label: "Keycloak Base Url"
+      type: "string"
+      required: true
+    - variable: keycloak_public_base_url
+      description: "Used to redirect user to keycloak panel"
+      label: "Keycloak Public Base Url"
+      type: "string"
+      required: true
+    - variable: keycloak_realm
+      description: "Used for REST Communication, e.g create tenant"
+      label: "Keycloak Realm"
+      type: "string"
+      required: true
+    - variable: keycloak_client_id
+      description: "Used for REST Communication, e.g create tenant"
+      label: "Keycloak Client Id"
+      type: "string"
+      required: true
+    - variable: api_keycloak_client_id
+      description: "Used for REST Communication from admin app, e.g receive token"
+      label: "API Keycloak Client Id"
+      type: "string"
+      required: true
+    - variable: api_keycloak_client_secret
+      description: "Used for REST Communication from API, e.g create tenant"
+      label: "Keycloak Client Secret"
+      type: "password"
+      required: true
+    - variable: sentry_dsn
+      description: "Used for collecting errors in Sentry service"
+      label: "Sentry DSN"
+      type: "password"
+      required: true
+    - variable: public_file_baseurl
+      description: "Specifies the path to service which will proxying user uploads from the S3"
+      label: "Public file base URL"
+      type: "string"
+      required: true
+    - variable: client_import_status_url
+      description: "Url which will be returned to ArtbutlerPro as a response to export request"
+      label: "Client import status url"
+      type: "string"
+      required: true
+    - variable: media_path_prefix
+      description: "Specifies the media path prefix"
+      label: "Media path prefix"
+      type: "string"
+      required: true
+    - variable: showroom_viewer_baseurl
+      description: "Specifies the URL for showroom viewer"
+      label: "Showroom viewer url"
+      type: "string"
+      required: true
+    - variable: app_debug
+      description: "Debug mode"
+      label: "Debug mode"
+      type: "boolean"
+      required: true
+    - variable: mail_to_artbutler_address
+      description: "Email address to Artbutler Team"
+      label: "Email address to Artbutler Team"
+      type: "string"
+      required: true
+    - variable: feature_presentations_enabled
+      description: "Enable/disable presentations feature"
+      label: "Presentations enabled"
+      type: "boolean"
+      required: true
+    - variable: api_presentations_url
+      description: "URL for presentations API used to connect with the presentations from AB.next API - can be a private IP if both in the same network"
+      label: "URL for presentations API"
+      type: "string"
+      required: true
+    - variable: presentations_public_url
+      description: "Public URL for presentations"
+      label: "Public URL for presentations"
+      type: "string"
+      required: true
+
+letsencrypt:
+  scale: 1
+  start_on_create: true
+vue:
+  scale: 1
+  start_on_create: true
+laravel:
+  scale: 1
+  start_on_create: true
+horizon:
+  scale: 1
+  start_on_create: true
+redis:
+  scale: 1
+  start_on_create: true
+elasticsearch:
+  scale: 1
+  start_on_create: true
+

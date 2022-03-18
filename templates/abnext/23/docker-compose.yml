@@ -209,7 +209,6 @@ services:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}
     volumes:
-      - {{ .Stack.Name }}_redis_data:/data
       - {{ .Stack.Name }}_redis_data_api:/data
   redis-presentations:
     image: redis:6.2.4

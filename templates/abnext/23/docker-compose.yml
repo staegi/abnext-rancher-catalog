@@ -106,11 +106,11 @@ services:
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
     links:
-      - redis:redis-api
+      - redis-api:redis
   presentation:
     image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.0.1
     links:
-      - redis:redis-presentations
+      - redis-presentations:redis
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}
@@ -204,7 +204,7 @@ services:
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
     links:
-      - redis:redis-api
+      - redis-api:redis
   redis-api:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}

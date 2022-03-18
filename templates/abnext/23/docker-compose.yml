@@ -106,11 +106,11 @@ services:
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
     links:
-      - redis:redis
+      - redis:redis-api
   presentation:
     image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.0.1
     links:
-      - redis:redis
+      - redis:redis-presentations
     environment:
       APP_ENV: ${app_env}
       APP_KEY: ${app_key}
@@ -204,12 +204,18 @@ services:
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
     links:
-      - redis:redis
-  redis:
+      - redis:redis-api
+  redis-api:
     image: redis:6.2.4
     command: redis-server --requirepass ${redis_password}
     volumes:
       - {{ .Stack.Name }}_redis_data:/data
+      - {{ .Stack.Name }}_redis_data_api:/data
+  redis-presentations:
+    image: redis:6.2.4
+    command: redis-server --requirepass ${redis_password}
+    volumes:
+      - {{ .Stack.Name }}_redis_data_presentations:/data
   elasticsearch:
     image: elasticsearch:7.13.2
     environment:

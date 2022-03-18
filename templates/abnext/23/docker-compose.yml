@@ -138,13 +138,12 @@ services:
       MAIL_ENCRYPTION: ${smtp_encryption}
       MAIL_FROM_ADDRESS: ${smtp_from_address}
       MAIL_FROM_NAME: ${smtp_from_name}
-      KEYCLOAK_REALM_PUBLIC_KEY: ${keycloak_realm_public_key}
-      KEYCLOAK_ALLOWED_RESOURCES: ${keycloak_allowed_resources}
+      KEYCLOAK_PUBLIC_KEY: ${keycloak_realm_public_key}
       KEYCLOAK_BASE_URL: ${keycloak_base_url}
-      KEYCLOAK_PUBLIC_BASE_URL: ${keycloak_public_base_url}
       KEYCLOAK_REALM: ${keycloak_realm}
-      KEYCLOAK_CLIENT_ID: ${api_keycloak_client_id}
-      KEYCLOAK_CLIENT_SECRET: ${api_keycloak_client_secret}
+      KEYCLOAK_CLIENT_ID: ${presentations_keycloak_client_id}
+      KEYCLOAK_CLIENT_SECRET: ${presentations_keycloak_client_secret}
+      GRAPHQL_ENDPOINT: ${presentations_graphql_endpoint}
   horizon:
     image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.20.0
     user: abx

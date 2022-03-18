@@ -200,6 +200,16 @@
       label: "Keycloak Client Secret"
       type: "password"
       required: true
+    - variable: presentations_keycloak_client_id
+      description: "Used for REST Communication from presentations viewer. To receive token"
+      label: "API Keycloak Client Id"
+      type: "string"
+      required: true
+    - variable: presentations_keycloak_client_secret
+      description: "Used for REST Communication from presentations viewer. To receive token"
+      label: "Keycloak Client Secret"
+      type: "password"
+      required: true
     - variable: sentry_dsn
       description: "Used for collecting errors in Sentry service"
       label: "Sentry DSN"
@@ -248,6 +258,11 @@
     - variable: presentations_public_url
       description: "Public URL for presentations"
       label: "Public URL for presentations"
+      type: "string"
+      required: true
+    - variable: presentations_graphql_endpoint
+      description: "URL for GraphQL endpoint to API. Presentations will connect to it to fetch data from the API"
+      label: "Graphql endpoint"
       type: "string"
       required: true
 

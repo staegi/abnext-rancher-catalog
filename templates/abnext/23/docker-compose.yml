@@ -108,6 +108,7 @@ services:
       PRESENTATIONS_BASE_URL: ${api_presentations_url}
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
+      ABL_AUTHORIZE_MIGRATION: ${abl_authorize_migration}
     links:
       - redis-api:redis
   presentation:
@@ -205,6 +206,7 @@ services:
       PRESENTATIONS_BASE_URL: ${api_presentations_url}
       PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
       FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
+      ABL_AUTHORIZE_MIGRATION: ${abl_authorize_migration}
     links:
       - redis-api:redis
   redis-api:

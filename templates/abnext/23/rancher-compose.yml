@@ -1,8 +1,8 @@
 .catalog:
   name: "ArtbutlerNext"
-  version: "0.20.0.3"
+  version: "0.20.0.4"
   description: "ArtbutlerNext Stack with API and Portal"
-  uuid: artbutler-next-0.20.0.3
+  uuid: artbutler-next-0.20.0.4
   minimum_rancher_version: v0.56.0
   questions:
     - variable: domain_list
@@ -75,6 +75,10 @@
       label: "Presentations database password"
       type: "password"
       required: true
+    - variable: abl_authorize_migration
+      description: "Enable/disable authorization before data migration"
+      label: "ArtButler Light authorization enabled"
+      type: "boolean"
     - variable: abl_db_host
       description: "ArtButler Light Database host"
       label: "ArtButler Light Database host"

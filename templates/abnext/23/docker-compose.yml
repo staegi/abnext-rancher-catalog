@@ -1,6 +1,9 @@
 version: '2'
 volumes:
-  {{ .Stack.Name }}_redis_data:
+  {{ .Stack.Name }}_redis_data_api:
+                     external: true
+                     driver: rancher-nfs
+  {{ .Stack.Name }}_redis_data_presentations:
                      external: true
                      driver: rancher-nfs
   {{ .Stack.Name }}_elasticsearch_data:

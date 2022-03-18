@@ -120,11 +120,10 @@ services:
       LOG_LEVEL: notice
       DB_HOST: ${db_host}
       DB_PORT: ${db_port}
-      DB_CONNECTION: tenant
-      DB_DATABASE: ${db_database}
-      DB_USERNAME: ${db_username}
-      DB_SYSTEM_USERNAME: ${db_system_username}
-      DB_PASSWORD: ${db_password}
+      DB_CONNECTION: pgsql
+      DB_DATABASE: ${db_database_presentations}
+      DB_USERNAME: ${db_username_presentations}
+      DB_PASSWORD: ${db_password_presentations}
       REDIS_HOST: redis
       REDIS_PASSWORD: ${redis_password}
       REDIS_PORT: 6379

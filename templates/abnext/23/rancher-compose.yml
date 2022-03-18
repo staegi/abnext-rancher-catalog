@@ -186,28 +186,28 @@
       type: "string"
       required: true
     - variable: keycloak_client_id
-      description: "Used for REST Communication, e.g create tenant"
-      label: "Keycloak Client Id"
+      description: "Public client ID Used for REST Communication from admin panel, e.g receive token"
+      label: "Public Keycloak Client Id"
       type: "string"
       required: true
     - variable: api_keycloak_client_id
-      description: "Used for REST Communication from admin app, e.g receive token"
+      description: "Used for REST Communication from admin app"
       label: "API Keycloak Client Id"
       type: "string"
       required: true
     - variable: api_keycloak_client_secret
       description: "Used for REST Communication from API, e.g create tenant"
-      label: "Keycloak Client Secret"
+      label: "Used alongside with API Keycloak Client Id to authorize"
       type: "password"
       required: true
     - variable: presentations_keycloak_client_id
       description: "Used for REST Communication from presentations viewer. To receive token"
-      label: "API Keycloak Client Id"
+      label: "Presentations Keycloak Client Id"
       type: "string"
       required: true
     - variable: presentations_keycloak_client_secret
-      description: "Used for REST Communication from presentations viewer. To receive token"
-      label: "Keycloak Client Secret"
+      description: "Used alongside with Presentations Keycloak Client Id to authorize"
+      label: "Presentations Keycloak Client Secret"
       type: "password"
       required: true
     - variable: sentry_dsn

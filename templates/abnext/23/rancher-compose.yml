@@ -70,10 +70,10 @@
       label: "Presentations database"
       type: "string"
       required: true
-    - variable: db_username_presentations
-      description: "Database user for presentations"
-      label: "Presentations database user"
-      type: "string"
+    - variable: db_password_presentations
+      description: "Database password for presentations"
+      label: "Presentations database password"
+      type: "password"
       required: true
     - variable: abl_db_host
       description: "ArtButler Light Database host"

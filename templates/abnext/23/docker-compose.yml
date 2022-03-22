@@ -1,14 +1,14 @@
 version: '2'
 volumes:
   {{ .Stack.Name }}_redis_data_api:
-                     external: true
-                     driver: rancher-nfs
+    external: true
+    driver: rancher-nfs
   {{ .Stack.Name }}_redis_data_presentations:
-                     external: true
-                     driver: rancher-nfs
+    external: true
+    driver: rancher-nfs
   {{ .Stack.Name }}_elasticsearch_data:
-                     external: true
-                     driver: rancher-nfs
+    external: true
+    driver: rancher-nfs
 services:
   letsencrypt:
     image: vxcontrol/rancher-letsencrypt:v1.0.0
@@ -125,9 +125,9 @@ services:
       DB_HOST: ${db_host}
       DB_PORT: ${db_port}
       DB_CONNECTION: pgsql
-      DB_DATABASE: ${db_database_presentations}
-      DB_USERNAME: ${db_username_presentations}
-      DB_PASSWORD: ${db_password_presentations}
+      DB_DATABASE: ${presentations_db_database}
+      DB_USERNAME: ${presentations_db_username}
+      DB_PASSWORD: ${presentations_db_password}
       REDIS_HOST: redis
       REDIS_PASSWORD: ${redis_password}
       REDIS_PORT: 6379

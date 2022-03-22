@@ -200,8 +200,8 @@
       type: "string"
       required: true
     - variable: api_keycloak_client_secret
-      description: "Used for REST Communication from API, e.g create tenant"
-      label: "Used alongside with API Keycloak Client Id to authorize"
+      description: "Used alongside with API Keycloak Client Id to authorize"
+      label: "API Keycloak Client secret"
       type: "password"
       required: true
     - variable: presentations_keycloak_client_id

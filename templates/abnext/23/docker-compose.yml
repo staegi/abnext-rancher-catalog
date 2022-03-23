@@ -30,7 +30,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   admin:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.20.0
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.20.1
     environment:
       VUE_APP_BASE_URL: "/"
       VUE_APP_ENV_NAME: "production"
@@ -45,7 +45,7 @@ services:
       VUE_APP_VERSION: "0.20.0"
       VUE_APP_WEBSITES_URL: ${presentations_public_url}
   api:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.20.0
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.20.1
     container_name: api
     external_links:
       - gotenberg/gotenberg:gotenberg
@@ -146,7 +146,7 @@ services:
       KEYCLOAK_CLIENT_SECRET: ${presentations_keycloak_client_secret}
       GRAPHQL_ENDPOINT: ${presentations_graphql_endpoint}
   horizon:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.20.0
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.20.1
     user: abx
     command: 'php /var/www/html/artisan horizon'
     external_links:

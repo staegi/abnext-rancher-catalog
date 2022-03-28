@@ -30,7 +30,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   admin:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.21.1
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.21.2
     environment:
       VUE_APP_BASE_URL: "/"
       VUE_APP_ENV_NAME: "production"
@@ -44,8 +44,9 @@ services:
       VUE_APP_REST: "https://${app_url}"
       VUE_APP_VERSION: "0.21.0"
       VUE_APP_WEBSITES_URL: ${presentations_public_url}
+      VUE_APP_GOOGLE_FONTS_API_KEY: ${google_fonts_api_key}
   api:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.21.1
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.21.2
     container_name: api
     external_links:
       - gotenberg/gotenberg:gotenberg
@@ -112,7 +113,7 @@ services:
     links:
       - redis-api:redis
   presentation:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.1.1
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.1.2
     links:
       - redis-presentations:redis
     environment:
@@ -147,7 +148,7 @@ services:
       GRAPHQL_ENDPOINT: ${presentations_graphql_endpoint}
       RESPONSE_CACHE_ENABLED: ${presentations_cache_enabled}
   horizon:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.21.1
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.21.2
     user: abx
     command: 'php /var/www/html/artisan horizon'
     external_links:

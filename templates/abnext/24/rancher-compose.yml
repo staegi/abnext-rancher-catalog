@@ -274,6 +274,11 @@
       label: "Presentations cache enabled"
       type: "boolean"
       required: true
+    - variable: google_fonts_api_key
+      description: "Google fonts API key"
+      label: "Google fonts API key"
+      type: "string"
+      required: true
 
 letsencrypt:
   scale: 1

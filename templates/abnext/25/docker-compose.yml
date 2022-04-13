@@ -30,7 +30,7 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
   admin:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.22.3
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.22.4
     environment:
       VUE_APP_BASE_URL: "/"
       VUE_APP_ENV_NAME: "production"

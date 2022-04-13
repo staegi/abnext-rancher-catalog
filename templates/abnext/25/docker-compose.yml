@@ -114,7 +114,7 @@ services:
     links:
       - redis-api:redis
   presentation:
-    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.2.1
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.2.2
     links:
       - redis-presentations:redis
     environment:

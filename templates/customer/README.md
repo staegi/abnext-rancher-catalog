@@ -15,7 +15,7 @@ Bei Kunden, die von vH7 wechseln, um das Zertifikat zu aktualisieren, bitte mit 
 
 Füllt [das Formular][1] für den Stack aus. Der `Account Identifier` sollte mit der numerischen Account ID im [Cloud Admin][2] identisch sein, weil dieser demnächst automatisch für die Subdomains unter artbutlercloud.com genutzt wird. Die `Domains` sind ohne Leerzeichen mit Kommata zu trennen. Gebt bitte beide Varianten mit und ohne www an. `Name` und `Description` des Stacks können frei gewählt werden.
 
-![](https://artbutler.s3.amazonaws.com/howto/step2.png)
+![](images/step2.png)
 
 Mit Klick auf `Launch` wird der Stack gestartet.
 
@@ -23,7 +23,7 @@ Mit Klick auf `Launch` wird der Stack gestartet.
 
 Fügt je Domain eine Service Rule im [Load Balancer][3] hinzu. Hier auch wieder mit und ohne www. Klicke dazu auf `Add Service Rule`. Nun erscheint am unteren Ende der Liste ein neuer leerer Eintrag.
 
-![](https://artbutler.s3.amazonaws.com/howto/step3.png)
+![](images/step3.png)
 
 Die Service Rule sollte mit folgenden Attributen und der jeweiligen Domain auf den neu angelegten Let's encrypt Container zeigen. Dieser steht zeit dem letzten Schritt im Dropdown zur Verfügung.
 
@@ -35,7 +35,7 @@ Die Service Rule sollte mit folgenden Attributen und der jeweiligen Domain auf d
     Target: *Let's encrypt Container*
     Port: 80
 
-![](https://artbutler.s3.amazonaws.com/howto/step4.png)
+![](images/step4.png)
 
 Mit dem Knopf `Edit` wird die Änderung bestätigt. Dazu ganz nach unten scrollen.
 
@@ -43,15 +43,15 @@ Mit dem Knopf `Edit` wird die Änderung bestätigt. Dazu ganz nach unten scrolle
 
 120 Sekunden nachdem der Let's encrypt Conatiner gestartet wurde, probiert er das erste Mal die Domains zu verifizieren. Somit wird das Zertifikat frühestens dann erzeugt. Eventuell musst du dich deshalb noch gedulden. [Beobachte die Liste der Zertifikate][4] gerne, wo das Zertifkat dann automatisch auftaucht. 
 
-![](https://artbutler.s3.amazonaws.com/howto/step5.png)
+![](images/step5.png)
 
 Ist das Zertifikat aufgetaucht, dann musst du wieder [in den Load Balancer gehen][3] und das Zertifikat anzuhängen. Dazu auf `Add Alternate Certificate` klicken. Nun erscheint wieder am Ende der Liste ein neues Auswahlfeld.
 
-![](https://artbutler.s3.amazonaws.com/howto/step6.png)
+![](images/step6.png)
 
 Und dann im Dropdown das neue Zertifikat mit dem `Account Identifier` auswählen.
 
-![](https://artbutler.s3.amazonaws.com/howto/step7.png)
+![](images/step7.png)
 
 Am Ende wieder mit dem Knopf `Edit` bestätigen.
 

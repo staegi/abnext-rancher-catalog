@@ -1,0 +1,249 @@
+version: '2'
+volumes:
+  {{ .Stack.Name }}_redis_data_api:
+    external: true
+    driver: rancher-nfs
+  {{ .Stack.Name }}_redis_data_presentations:
+    external: true
+    driver: rancher-nfs
+  {{ .Stack.Name }}_elasticsearch_data:
+    external: true
+    driver: rancher-nfs
+services:
+  letsencrypt:
+    image: vxcontrol/rancher-letsencrypt:v1.0.0
+    environment:
+      API_VERSION: Production
+      CERT_NAME: {{ .Stack.Name }}
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      DOMAINS: ${domain_list}
+      EMAIL: serviceadmin@artbutler.com
+      EULA: 'Yes'
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-4096
+      RENEWAL_PERIOD_DAYS: '30'
+      RENEWAL_TIME: '3'
+      RUN_ONCE: 'false'
+    volumes:
+      - /var/lib/rancher:/var/lib/rancher
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+  admin:
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/frontend:0.27.0
+    environment:
+      VUE_APP_BASE_URL: "/"
+      VUE_APP_ENV_NAME: "production"
+      VUE_APP_I18N_LOCALE: "en"
+      VUE_APP_I18N_FALLBACK_LOCALE: "en"
+      VUE_APP_KEYCLOAK_REALM: ${keycloak_realm}
+      VUE_APP_KEYCLOAK_URL: "${keycloak_base_url}/auth"
+      VUE_APP_KEYCLOAK_CLIENT_ID: ${keycloak_client_id}
+      VUE_APP_NODE_ENV: "production"
+      VUE_APP_GRAPHQL_HTTP: "https://${app_url}/graphql"
+      VUE_APP_REST: "https://${app_url}"
+      VUE_APP_VERSION: "0.27.0"
+      VUE_APP_WEBSITES_URL: ${presentations_public_url}
+      VUE_APP_OPENREPLAY: ${openreplay_project_key}
+  api:
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.27.0
+    container_name: api
+    external_links:
+      - gotenberg/gotenberg:gotenberg
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.{{ .Stack.Name }}.schedule: "@every 1m"
+      ofelia.job-exec.{{ .Stack.Name }}.command: "php /var/www/html/artisan schedule:run"
+    environment:
+      APP_ENV: ${app_env}
+      APP_KEY: ${app_key}
+      APP_URL: ${app_url}
+      APP_DEBUG: ${app_debug}
+      LOG_CHANNEL: ${log_channel}
+      LOG_LEVEL: notice
+      DB_HOST: ${db_host}
+      DB_PORT: ${db_port}
+      DB_CONNECTION: tenant
+      DB_DATABASE: ${db_database}
+      DB_USERNAME: ${db_username}
+      DB_SYSTEM_USERNAME: ${db_system_username}
+      DB_PASSWORD: ${db_password}
+      ABL_DB_HOST: ${abl_db_host}
+      ABL_DB_PORT: ${abl_db_port}
+      ABL_DB_DATABASE: ${abl_db_database}
+      ABL_DB_USERNAME: ${abl_db_username}
+      ABL_DB_PASSWORD: ${abl_db_password}
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${redis_password}
+      REDIS_PORT: 6379
+      MAIL_MAILER: smtp
+      MAIL_HOST: ${smtp_host}
+      MAIL_PORT: ${smtp_port}
+      MAIL_USERNAME: ${smtp_username}
+      MAIL_PASSWORD: ${smtp_password}
+      MAIL_ENCRYPTION: ${smtp_encryption}
+      MAIL_FROM_ADDRESS: ${smtp_from_address}
+      MAIL_FROM_NAME: ${smtp_from_name}
+      AWS_ACCESS_KEY_ID: ${aws_access_key_id}
+      AWS_SECRET_ACCESS_KEY: ${aws_secret_access_key}
+      AWS_DEFAULT_REGION: ${aws_default_region}
+      AWS_BUCKET: ${aws_bucket}
+      KEYCLOAK_REALM_PUBLIC_KEY: ${keycloak_realm_public_key}
+      KEYCLOAK_ALLOWED_RESOURCES: ${keycloak_allowed_resources}
+      KEYCLOAK_BASE_URL: ${keycloak_base_url}
+      KEYCLOAK_PUBLIC_BASE_URL: ${keycloak_public_base_url}
+      KEYCLOAK_REALM: ${keycloak_realm}
+      KEYCLOAK_CLIENT_ID: ${api_keycloak_client_id}
+      KEYCLOAK_CLIENT_SECRET: ${api_keycloak_client_secret}
+      INVITATION_URL_EXPIRATION_HOURS: 24
+      SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
+      CLIENT_IMPORT_STATUS_URL: ${client_import_status_url}
+      CLIENT_PANEL_BASEURL: ${client_panel_baseurl}
+      MEDIA_PATH_PREFIX: ${media_path_prefix}
+      SHOWROOM_VIEWER_BASEURL: ${showroom_viewer_baseurl}
+      SHOWROOM_VIEWER_API_BASEURL: ${showroom_viewer_api_baseurl}
+      MEDIA_DISK: s3
+      FILESYSTEM_DRIVER: s3
+      MAIL_TO_ARTBUTLER_ADDRESS: ${mail_to_artbutler_address}
+      SCOUT_DRIVER: elastic
+      GOTENBERG_URL: http://gotenberg:3000/
+      USE_KEYCLOAK: true
+      PRESENTATIONS_BASE_URL: ${api_presentations_url}
+      PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
+      FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
+      ABL_AUTHORIZE_MIGRATION: ${abl_authorize_migration}
+      GOOGLE_FONTS_API_KEY: ${google_fonts_api_key}
+    links:
+      - redis-api:redis
+  presentation:
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/presentation:0.5.0
+    links:
+      - redis-presentations:redis
+    environment:
+      APP_ENV: ${app_env}
+      APP_KEY: ${app_key}
+      APP_URL: ${presentations_public_url}
+      APP_DEBUG: ${app_debug}
+      LOG_CHANNEL: ${log_channel}
+      LOG_LEVEL: notice
+      DB_HOST: ${db_host}
+      DB_PORT: ${db_port}
+      DB_CONNECTION: pgsql
+      DB_DATABASE: ${presentations_db_database}
+      DB_USERNAME: ${presentations_db_username}
+      DB_PASSWORD: ${presentations_db_password}
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${redis_password}
+      REDIS_PORT: 6379
+      MAIL_MAILER: smtp
+      MAIL_HOST: ${smtp_host}
+      MAIL_PORT: ${smtp_port}
+      MAIL_USERNAME: ${smtp_username}
+      MAIL_PASSWORD: ${smtp_password}
+      MAIL_ENCRYPTION: ${smtp_encryption}
+      MAIL_FROM_ADDRESS: ${smtp_from_address}
+      MAIL_FROM_NAME: ${smtp_from_name}
+      KEYCLOAK_PUBLIC_KEY: ${keycloak_realm_public_key}
+      KEYCLOAK_BASE_URL: ${keycloak_base_url}
+      KEYCLOAK_REALM: ${keycloak_realm}
+      KEYCLOAK_CLIENT_ID: ${presentations_keycloak_client_id}
+      KEYCLOAK_CLIENT_SECRET: ${presentations_keycloak_client_secret}
+      GRAPHQL_ENDPOINT: ${presentations_graphql_endpoint}
+      RESPONSE_CACHE_ENABLED: ${presentations_cache_enabled}
+      SENTRY_DSN: ${presentations_sentry_dsn}
+  horizon:
+    image: 047641054850.dkr.ecr.eu-central-1.amazonaws.com/abnext/backend:0.27.0
+    user: abx
+    command: 'php /var/www/html/artisan horizon'
+    external_links:
+      - gotenberg/gotenberg:gotenberg
+    environment:
+      APP_ENV: ${app_env}
+      APP_KEY: ${app_key}
+      APP_URL: ${app_url}
+      APP_DEBUG: ${app_debug}
+      LOG_CHANNEL: ${log_channel}
+      LOG_LEVEL: notice
+      DB_HOST: ${db_host}
+      DB_PORT: ${db_port}
+      DB_CONNECTION: tenant
+      DB_DATABASE: ${db_database}
+      DB_USERNAME: ${db_username}
+      DB_SYSTEM_USERNAME: ${db_system_username}
+      DB_PASSWORD: ${db_password}
+      ABL_DB_HOST: ${abl_db_host}
+      ABL_DB_PORT: ${abl_db_port}
+      ABL_DB_DATABASE: ${abl_db_database}
+      ABL_DB_USERNAME: ${abl_db_username}
+      ABL_DB_PASSWORD: ${abl_db_password}
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${redis_password}
+      REDIS_PORT: 6379
+      MAIL_MAILER: smtp
+      MAIL_HOST: ${smtp_host}
+      MAIL_PORT: ${smtp_port}
+      MAIL_USERNAME: ${smtp_username}
+      MAIL_PASSWORD: ${smtp_password}
+      MAIL_ENCRYPTION: ${smtp_encryption}
+      MAIL_FROM_ADDRESS: ${smtp_from_address}
+      MAIL_FROM_NAME: ${smtp_from_name}
+      AWS_ACCESS_KEY_ID: ${aws_access_key_id}
+      AWS_SECRET_ACCESS_KEY: ${aws_secret_access_key}
+      AWS_DEFAULT_REGION: ${aws_default_region}
+      AWS_BUCKET: ${aws_bucket}
+      KEYCLOAK_REALM_PUBLIC_KEY: ${keycloak_realm_public_key}
+      KEYCLOAK_ALLOWED_RESOURCES: ${keycloak_allowed_resources}
+      KEYCLOAK_BASE_URL: ${keycloak_base_url}
+      KEYCLOAK_PUBLIC_BASE_URL: ${keycloak_public_base_url}
+      KEYCLOAK_REALM: ${keycloak_realm}
+      KEYCLOAK_CLIENT_ID: ${api_keycloak_client_id}
+      KEYCLOAK_CLIENT_SECRET: ${api_keycloak_client_secret}
+      INVITATION_URL_EXPIRATION_HOURS: 24
+      SENTRY_DSN: ${sentry_dsn}
+      PUBLIC_FILE_BASEURL: ${public_file_baseurl}
+      CLIENT_IMPORT_STATUS_URL: ${client_import_status_url}
+      CLIENT_PANEL_BASEURL: ${client_panel_baseurl}
+      MEDIA_PATH_PREFIX: ${media_path_prefix}
+      SHOWROOM_VIEWER_BASEURL: ${showroom_viewer_baseurl}
+      SHOWROOM_VIEWER_API_BASEURL: ${showroom_viewer_api_baseurl}
+      MEDIA_DISK: s3
+      FILESYSTEM_DRIVER: s3
+      MAIL_TO_ARTBUTLER_ADDRESS: ${mail_to_artbutler_address}
+      SCOUT_DRIVER: elastic
+      GOTENBERG_URL: http://gotenberg:3000/
+      USE_KEYCLOAK: true
+      PRESENTATIONS_BASE_URL: ${api_presentations_url}
+      PRESENTATION_VIEWER_BASEURL: ${presentations_public_url}
+      FEATURE_PRESENTATIONS: ${feature_presentations_enabled}
+      ABL_AUTHORIZE_MIGRATION: ${abl_authorize_migration}
+      GOOGLE_FONTS_API_KEY: ${google_fonts_api_key}
+    links:
+      - redis-api:redis
+  redis-api:
+    image: redis:6.2.4
+    command: redis-server --requirepass ${redis_password}
+    volumes:
+      - {{ .Stack.Name }}_redis_data_api:/data
+  redis-presentations:
+    image: redis:6.2.4
+    command: redis-server --requirepass ${redis_password}
+    volumes:
+      - {{ .Stack.Name }}_redis_data_presentations:/data
+  elasticsearch:
+    image: elasticsearch:7.13.2
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - TAKE_FILE_OWNERSHIP="true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - {{ .Stack.Name }}_elasticsearch_data:/usr/share/elasticsearch/data
